@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'windows': ['"Segoe UI"', '"MS Sans Serif"', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+        'windows-mono': ['Consolas', '"Courier New"', 'monospace'],
+      },
       gridTemplateColumns: {
         '16': 'repeat(16, minmax(0, 1fr))',
         '30': 'repeat(30, minmax(0, 1fr))',

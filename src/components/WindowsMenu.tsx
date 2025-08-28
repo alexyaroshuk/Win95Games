@@ -39,9 +39,9 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         border: 'none',
                         backgroundColor: activeMenu === 'file' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'file' ? '#ffffff' : '#000000',
-                        fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                        fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                         fontSize: '11px',
-                        fontWeight: 'normal',
+                        fontWeight: '400',
                         padding: '2px 8px',
                         cursor: 'pointer'
                     }}
@@ -60,7 +60,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={handleResetGame}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
@@ -89,7 +89,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => setActiveMenu(null)}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
@@ -121,9 +121,9 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         border: 'none',
                         backgroundColor: activeMenu === 'game' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'game' ? '#ffffff' : '#000000',
-                        fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                        fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                         fontSize: '11px',
-                        fontWeight: 'normal',
+                        fontWeight: '400',
                         padding: '2px 8px',
                         cursor: 'pointer'
                     }}
@@ -142,7 +142,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => handleNewGame('beginner')}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: currentDifficulty === 'beginner' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'beginner' ? '#000080' : '#c0c0c0',
@@ -170,7 +170,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => handleNewGame('intermediate')}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: currentDifficulty === 'intermediate' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'intermediate' ? '#000080' : '#c0c0c0',
@@ -198,7 +198,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => handleNewGame('expert')}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: currentDifficulty === 'expert' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'expert' ? '#000080' : '#c0c0c0',
@@ -234,9 +234,9 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         border: 'none',
                         backgroundColor: activeMenu === 'help' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'help' ? '#ffffff' : '#000000',
-                        fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                        fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                         fontSize: '11px',
-                        fontWeight: 'normal',
+                        fontWeight: '400',
                         padding: '2px 8px',
                         cursor: 'pointer'
                     }}
@@ -255,7 +255,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => setActiveMenu(null)}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
@@ -279,7 +279,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             onClick={() => setActiveMenu(null)}
                             className="w-full text-left"
                             style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',

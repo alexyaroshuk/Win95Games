@@ -63,7 +63,7 @@ export const GameCell: React.FC<GameCellProps> = ({
             padding: '0',
             fontSize: '12px',
             fontWeight: 'bold',
-            fontFamily: 'MS Sans Serif, sans-serif',
+            fontFamily: 'Consolas, "Courier New", monospace',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

@@ -20,9 +20,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
     onMaximize
 }) => {
     return (
-        <div className="inline-block" style={{
-            fontFamily: 'MS Sans Serif, Arial, sans-serif'
-        }}>
+        <div className="inline-block font-windows">
             {/* Window Container */}
             <div className="bg-gray-300">
                 {/* Title Bar - Classic Windows 95 Navy */}
@@ -52,11 +50,12 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                                 💣
                             </div>
                             <span style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
-                                fontWeight: 'bold',
+                                fontWeight: '600',
                                 color: '#ffffff',
-                                letterSpacing: '0px'
+                                letterSpacing: '0px',
+                                textShadow: '1px 1px 0px rgba(0,0,0,0.5)'
                             }}>Minesweeper</span>
                         </div>
 
@@ -205,8 +204,8 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         padding: '0',
-                        fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '10px'
+                        fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
+                        fontSize: '11px'
                     }}>
                         {menuBar}
                     </div>
