@@ -66,8 +66,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
 
         return (
             <div className="inline-block" style={{
-                width: '16px',
-                height: '26px',
+                width: '14px',
+                height: '24px',
                 position: 'relative',
                 marginRight: '1px'
             }}>
@@ -76,8 +76,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '1px',
                     left: '2px',
-                    width: '12px',
-                    height: '3px',
+                    width: '10px',
+                    height: '2px',
                     backgroundColor: segmentPattern[0] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[0] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)'
@@ -88,8 +88,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '2px',
                     right: '1px',
-                    width: '3px',
-                    height: '10px',
+                    width: '2px',
+                    height: '9px',
                     backgroundColor: segmentPattern[1] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[1] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
@@ -100,8 +100,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '13px',
                     right: '1px',
-                    width: '3px',
-                    height: '10px',
+                    width: '2px',
+                    height: '9px',
                     backgroundColor: segmentPattern[2] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[2] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
@@ -112,8 +112,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     bottom: '1px',
                     left: '2px',
-                    width: '12px',
-                    height: '3px',
+                    width: '10px',
+                    height: '2px',
                     backgroundColor: segmentPattern[3] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[3] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)'
@@ -124,8 +124,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '13px',
                     left: '1px',
-                    width: '3px',
-                    height: '10px',
+                    width: '2px',
+                    height: '9px',
                     backgroundColor: segmentPattern[4] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[4] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
@@ -136,8 +136,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '2px',
                     left: '1px',
-                    width: '3px',
-                    height: '10px',
+                    width: '2px',
+                    height: '9px',
                     backgroundColor: segmentPattern[5] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[5] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
@@ -148,8 +148,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     position: 'absolute',
                     top: '11px',
                     left: '2px',
-                    width: '12px',
-                    height: '3px',
+                    width: '10px',
+                    height: '2px',
                     backgroundColor: segmentPattern[6] === '1' ? '#ff0000' : '#2a0000',
                     boxShadow: segmentPattern[6] === '1' ? '0 0 3px #ff0000' : 'none',
                     clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)'
@@ -198,14 +198,16 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     border: '2px inset #808080',
                     borderRightColor: '#ffffff',
                     borderBottomColor: '#ffffff',
-                    minWidth: '52px',
+                    minWidth: '50px',
+                    height: '36px',
                     textAlign: 'center',
                     backgroundColor: '#000000',
-                    padding: '4px 6px',
+                    padding: '0',
                     background: 'linear-gradient(to bottom, #000000 0%, #1a1a1a 100%)',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    boxSizing: 'border-box'
                 }}>
                     {formatDigitalDisplay(remainingMines).split('').map((digit, index) => (
                         <LEDDigit key={index} digit={digit} />
@@ -217,15 +219,19 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     onClick={onResetGame}
                     className="text-2xl"
                     style={{
-                        width: '32px',
-                        height: '32px',
+                        width: '36px',
+                        height: '36px',
                         border: '2px outset #c0c0c0',
                         borderLeftColor: '#ffffff',
                         borderTopColor: '#ffffff',
                         backgroundColor: '#c0c0c0',
                         fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '16px',
-                        cursor: 'pointer'
+                        fontSize: '18px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '0'
                     }}
                     onMouseDown={(e) => {
                         e.currentTarget.style.border = '2px inset #c0c0c0';
@@ -250,14 +256,16 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     border: '2px inset #808080',
                     borderRightColor: '#ffffff',
                     borderBottomColor: '#ffffff',
-                    minWidth: '52px',
+                    minWidth: '50px',
+                    height: '36px',
                     textAlign: 'center',
                     backgroundColor: '#000000',
-                    padding: '4px 6px',
+                    padding: '0',
                     background: 'linear-gradient(to bottom, #000000 0%, #1a1a1a 100%)',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    boxSizing: 'border-box'
                 }}>
                     {formatDigitalDisplay(getElapsedTime()).split('').map((digit, index) => (
                         <LEDDigit key={index} digit={digit} />

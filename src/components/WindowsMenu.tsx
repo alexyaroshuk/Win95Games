@@ -30,19 +30,19 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
     };
 
     return (
-        <div className="flex space-x-1">
+        <div className="flex">
             {/* File Menu */}
         <div className="relative">
                 <button
                     onClick={() => handleMenuClick('file')}
                     style={{
-                        border: '2px outset #c0c0c0',
+                        border: 'none',
                         backgroundColor: activeMenu === 'file' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'file' ? '#ffffff' : '#000000',
                         fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '10px',
+                        fontSize: '11px',
                         fontWeight: 'normal',
-                        padding: '1px 4px',
+                        padding: '2px 8px',
                         cursor: 'pointer'
                     }}
                 >
@@ -110,13 +110,13 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                 <button
                     onClick={() => handleMenuClick('game')}
                     style={{
-                        border: '2px outset #c0c0c0',
+                        border: 'none',
                         backgroundColor: activeMenu === 'game' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'game' ? '#ffffff' : '#000000',
                         fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '10px',
+                        fontSize: '11px',
                         fontWeight: 'normal',
-                        padding: '1px 4px',
+                        padding: '2px 8px',
                         cursor: 'pointer'
                     }}
                 >
@@ -215,13 +215,13 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                 <button
                     onClick={() => handleMenuClick('help')}
                     style={{
-                        border: '2px outset #c0c0c0',
+                        border: 'none',
                         backgroundColor: activeMenu === 'help' ? '#000080' : '#c0c0c0',
                         color: activeMenu === 'help' ? '#ffffff' : '#000000',
                         fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '10px',
+                        fontSize: '11px',
                         fontWeight: 'normal',
-                        padding: '1px 4px',
+                        padding: '2px 8px',
                         cursor: 'pointer'
                     }}
                 >

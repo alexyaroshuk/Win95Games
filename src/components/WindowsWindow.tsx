@@ -25,7 +25,11 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
         }}>
             {/* Window Container */}
             <div className="bg-gray-300" style={{
-                boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
+                border: '2px solid',
+                borderTopColor: '#ffffff',
+                borderLeftColor: '#ffffff',
+                borderRightColor: '#000000',
+                borderBottomColor: '#000000'
             }}>
                 {/* Title Bar - Classic Windows 95 Navy */}
                 <div style={{
@@ -169,7 +173,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                 {/* Menu Bar - Classic Windows 95 Style */}
                 {menuBar && (
                     <div style={{
-                        borderBottom: '2px outset #c0c0c0',
+                        borderBottom: '1px solid #808080',
                         backgroundColor: '#c0c0c0',
                         minHeight: '20px',
                         display: 'flex',
@@ -185,7 +189,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                 {/* Window Content */}
                 <div style={{
                     backgroundColor: '#c0c0c0',
-                    padding: '16px'
+                    padding: '8px'
                 }}>
                     {children}
                 </div>
