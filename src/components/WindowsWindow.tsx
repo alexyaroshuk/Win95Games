@@ -24,13 +24,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
             fontFamily: 'MS Sans Serif, Arial, sans-serif'
         }}>
             {/* Window Container */}
-            <div className="bg-gray-300" style={{
-                border: '2px solid',
-                borderTopColor: '#ffffff',
-                borderLeftColor: '#ffffff',
-                borderRightColor: '#000000',
-                borderBottomColor: '#000000'
-            }}>
+            <div className="bg-gray-300">
                 {/* Title Bar - Classic Windows 95 Navy */}
                 <div style={{
                     backgroundColor: '#000080',
@@ -43,128 +37,161 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                     }}>
                         {/* Window Title */}
                         <div className="flex items-center" style={{
-                            padding: '1px 12px'
+                            padding: '2px 2px'
                         }}>
-                            <span className="font-bold text-sm" style={{
+                            {/* Minesweeper Icon - Mine/Bomb */}
+                            <div style={{
+                                width: '16px',
+                                height: '16px',
+                                marginRight: '4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '12px'
+                            }}>
+                                💣
+                            </div>
+                            <span style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontSize: '11px',
+                                fontWeight: 'bold',
                                 color: '#ffffff',
-                                textShadow: '1px 1px 0px #000000',
-                                letterSpacing: '0.5px'
+                                letterSpacing: '0px'
                             }}>Minesweeper</span>
                         </div>
 
                         {/* Control Buttons - Classic Windows 95 Style */}
-                        <div className="flex space-x-1" style={{
-                            padding: '1px 0px',
-                            flex: '1',
-                            justifyContent: 'flex-end'
+                        <div className="flex" style={{
+                            padding: '2px 2px 2px 0',
+                            gap: '2px'
                         }}>
                             {/* Minimize Button */}
                             <button
                                 onClick={onMinimize}
                                 style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    border: '2px outset #c0c0c0',
+                                    width: '16px',
+                                    height: '14px',
+                                    border: '1px solid',
+                                    borderTopColor: '#ffffff',
+                                    borderLeftColor: '#ffffff',
+                                    borderRightColor: '#000000',
+                                    borderBottomColor: '#000000',
                                     backgroundColor: '#c0c0c0',
-                                    fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold',
                                     cursor: 'pointer',
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-end',
                                     justifyContent: 'center',
-                                    padding: '0',
-                                    margin: '0',
-                                    outline: 'none',
-                                    boxSizing: 'border-box'
+                                    padding: '0 0 2px 0',
+                                    fontSize: '10px',
+                                    fontWeight: 'bold',
+                                    lineHeight: '1'
                                 }}
                                 onMouseDown={(e) => {
-                                    e.currentTarget.style.border = '2px inset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#a0a0a0';
+                                    e.currentTarget.style.borderTopColor = '#000000';
+                                    e.currentTarget.style.borderLeftColor = '#000000';
+                                    e.currentTarget.style.borderRightColor = '#ffffff';
+                                    e.currentTarget.style.borderBottomColor = '#ffffff';
                                 }}
                                 onMouseUp={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                             >
-                                <span style={{ color: '#000000', lineHeight: '1' }}>_</span>
+                                _
                             </button>
 
                             {/* Maximize Button */}
                             <button
                                 onClick={onMaximize}
                                 style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    border: '2px outset #c0c0c0',
+                                    width: '16px',
+                                    height: '14px',
+                                    border: '1px solid',
+                                    borderTopColor: '#ffffff',
+                                    borderLeftColor: '#ffffff',
+                                    borderRightColor: '#000000',
+                                    borderBottomColor: '#000000',
                                     backgroundColor: '#c0c0c0',
-                                    fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold',
                                     cursor: 'pointer',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     padding: '0',
-                                    margin: '0',
-                                    outline: 'none',
-                                    boxSizing: 'border-box'
+                                    fontSize: '10px',
+                                    fontWeight: 'bold',
+                                    lineHeight: '1'
                                 }}
                                 onMouseDown={(e) => {
-                                    e.currentTarget.style.border = '2px inset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#a0a0a0';
+                                    e.currentTarget.style.borderTopColor = '#000000';
+                                    e.currentTarget.style.borderLeftColor = '#000000';
+                                    e.currentTarget.style.borderRightColor = '#ffffff';
+                                    e.currentTarget.style.borderBottomColor = '#ffffff';
                                 }}
                                 onMouseUp={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                             >
-                                <span style={{ color: '#000000', lineHeight: '1' }}>□</span>
+                                □
                             </button>
 
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
                                 style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    border: '2px outset #c0c0c0',
+                                    width: '16px',
+                                    height: '14px',
+                                    border: '1px solid',
+                                    borderTopColor: '#ffffff',
+                                    borderLeftColor: '#ffffff',
+                                    borderRightColor: '#000000',
+                                    borderBottomColor: '#000000',
                                     backgroundColor: '#c0c0c0',
-                                    fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold',
                                     cursor: 'pointer',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     padding: '0',
-                                    margin: '0',
-                                    outline: 'none',
-                                    boxSizing: 'border-box'
+                                    fontSize: '10px',
+                                    fontWeight: 'bold',
+                                    lineHeight: '1'
                                 }}
                                 onMouseDown={(e) => {
-                                    e.currentTarget.style.border = '2px inset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#a0a0a0';
+                                    e.currentTarget.style.borderTopColor = '#000000';
+                                    e.currentTarget.style.borderLeftColor = '#000000';
+                                    e.currentTarget.style.borderRightColor = '#ffffff';
+                                    e.currentTarget.style.borderBottomColor = '#ffffff';
                                 }}
                                 onMouseUp={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.border = '2px outset #c0c0c0';
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                    e.currentTarget.style.borderTopColor = '#ffffff';
+                                    e.currentTarget.style.borderLeftColor = '#ffffff';
+                                    e.currentTarget.style.borderRightColor = '#000000';
+                                    e.currentTarget.style.borderBottomColor = '#000000';
                                 }}
                             >
-                                <span style={{ color: '#000000', lineHeight: '1' }}>×</span>
+                                ✕
                             </button>
                         </div>
                     </div>
@@ -173,7 +200,6 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                 {/* Menu Bar - Classic Windows 95 Style */}
                 {menuBar && (
                     <div style={{
-                        borderBottom: '1px solid #808080',
                         backgroundColor: '#c0c0c0',
                         minHeight: '20px',
                         display: 'flex',
@@ -189,7 +215,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                 {/* Window Content */}
                 <div style={{
                     backgroundColor: '#c0c0c0',
-                    padding: '8px'
+                    padding: '4px'
                 }}>
                     {children}
                 </div>

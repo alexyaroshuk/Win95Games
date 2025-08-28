@@ -297,34 +297,44 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
     };
 
     return (
-        <div className="flex flex-col" style={{
+        <div style={{
+            border: '3px solid',
+            borderTopColor: '#ffffff',
+            borderLeftColor: '#ffffff',
+            borderRightColor: '#808080',
+            borderBottomColor: '#808080',
             backgroundColor: '#c0c0c0',
-            minHeight: '200px',
-            gap: '8px'
+            padding: '14px'
         }}>
-            <GameStats
-                mineCount={gameState.mineCount}
-                flaggedCount={gameState.flaggedCount}
-                startTime={gameState.startTime}
-                endTime={gameState.endTime}
-                gameOver={gameState.gameOver}
-                gameWon={gameState.gameWon}
-                onResetGame={handleResetGame}
-                isAnyCellPressed={isAnyCellPressed}
-                difficulty={gameState.difficulty}
-            />
+            <div className="flex flex-col" style={{
+                backgroundColor: '#c0c0c0',
+                minHeight: '200px',
+                gap: '8px'
+            }}>
+                <GameStats
+                    mineCount={gameState.mineCount}
+                    flaggedCount={gameState.flaggedCount}
+                    startTime={gameState.startTime}
+                    endTime={gameState.endTime}
+                    gameOver={gameState.gameOver}
+                    gameWon={gameState.gameWon}
+                    onResetGame={handleResetGame}
+                    isAnyCellPressed={isAnyCellPressed}
+                    difficulty={gameState.difficulty}
+                />
 
-            <GameBoard
-                board={gameState.board}
-                onCellClick={handleCellClick}
-                onRightClick={handleRightClick}
-                onCellMouseDown={handleCellMouseDown}
-                onCellMouseUp={handleCellMouseUp}
-                onCellMouseEnter={handleCellMouseEnter}
-                gameOver={gameState.gameOver}
-                gameWon={gameState.gameWon}
-                isDragging={gameState.isDragging}
-            />
+                <GameBoard
+                    board={gameState.board}
+                    onCellClick={handleCellClick}
+                    onRightClick={handleRightClick}
+                    onCellMouseDown={handleCellMouseDown}
+                    onCellMouseUp={handleCellMouseUp}
+                    onCellMouseEnter={handleCellMouseEnter}
+                    gameOver={gameState.gameOver}
+                    gameWon={gameState.gameWon}
+                    isDragging={gameState.isDragging}
+                />
+            </div>
         </div>
     );
 };

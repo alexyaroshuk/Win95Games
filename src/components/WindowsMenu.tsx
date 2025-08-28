@@ -51,56 +51,64 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
 
                 {activeMenu === 'file' && (
                     <div className="absolute top-full left-0 z-10" style={{
-                        minWidth: '120px',
-                        backgroundColor: '#c0c0c0'
+                        minWidth: '150px',
+                        backgroundColor: '#c0c0c0',
+                        border: '1px solid #808080',
+                        padding: '2px'
                     }}>
-            <button
-                            onClick={handleResetGame}
-                            className="w-full px-3 py-1 text-left"
-                style={{
-                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
-                                color: '#000000',
-                                backgroundColor: '#c0c0c0',
-                    border: 'none',
-                                padding: '4px 8px'
-                }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#000080';
-                    e.currentTarget.style.color = '#ffffff';
-                }}
-                            onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#c0c0c0';
-                    e.currentTarget.style.color = '#000000';
-                }}
-                        >
-                            New Game
-                        </button>
-                        <div style={{
-                            margin: '2px 0'
-                        }}></div>
                         <button
-                            onClick={() => setActiveMenu(null)}
-                            className="w-full px-3 py-1 text-left"
+                            onClick={handleResetGame}
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = '#000080';
                                 e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#c0c0c0';
-                    e.currentTarget.style.color = '#000000';
-                }}
-            >
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
+                            }}
+                        >
+                            New Game
+                        </button>
+                        <div style={{
+                            borderTop: '1px solid #808080',
+                            borderBottom: '1px solid #ffffff',
+                            margin: '2px 2px'
+                        }}></div>
+                        <button
+                            onClick={() => setActiveMenu(null)}
+                            className="w-full text-left"
+                            style={{
+                                fontFamily: 'MS Sans Serif, Arial, sans-serif',
+                                fontSize: '11px',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
+                                border: 'none',
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
+                            }}
+                        >
                             Exit
-            </button>
+                        </button>
                     </div>
                 )}
             </div>
@@ -125,19 +133,23 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
 
                 {activeMenu === 'game' && (
                     <div className="absolute top-full left-0 z-10" style={{
-                        minWidth: '120px',
-                        backgroundColor: '#c0c0c0'
+                        minWidth: '150px',
+                        backgroundColor: '#c0c0c0',
+                        border: '1px solid #808080',
+                        padding: '2px'
                     }}>
                         <button
                             onClick={() => handleNewGame('beginner')}
-                            className="w-full px-3 py-1 text-left"
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: currentDifficulty === 'beginner' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'beginner' ? '#000080' : '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 if (currentDifficulty !== 'beginner') {
@@ -156,14 +168,16 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         </button>
                         <button
                             onClick={() => handleNewGame('intermediate')}
-                            className="w-full px-3 py-1 text-left"
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: currentDifficulty === 'intermediate' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'intermediate' ? '#000080' : '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 if (currentDifficulty !== 'intermediate') {
@@ -182,14 +196,16 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         </button>
                         <button
                             onClick={() => handleNewGame('expert')}
-                            className="w-full px-3 py-1 text-left"
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: currentDifficulty === 'expert' ? '#ffffff' : '#000000',
                                 backgroundColor: currentDifficulty === 'expert' ? '#000080' : '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 if (currentDifficulty !== 'expert') {
@@ -230,20 +246,23 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
 
                 {activeMenu === 'help' && (
                     <div className="absolute top-full left-0 z-10" style={{
+                        minWidth: '180px',
+                        backgroundColor: '#c0c0c0',
                         border: '1px solid #808080',
-                        minWidth: '120px',
-                        backgroundColor: '#c0c0c0'
+                        padding: '2px'
                     }}>
                         <button
                             onClick={() => setActiveMenu(null)}
-                            className="w-full px-3 py-1 text-left"
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = '#000080';
@@ -258,14 +277,16 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         </button>
                         <button
                             onClick={() => setActiveMenu(null)}
-                            className="w-full px-3 py-1 text-left"
+                            className="w-full text-left"
                             style={{
                                 fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                                fontSize: '10px',
+                                fontSize: '11px',
                                 color: '#000000',
                                 backgroundColor: '#c0c0c0',
                                 border: 'none',
-                                padding: '4px 8px'
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = '#000080';
