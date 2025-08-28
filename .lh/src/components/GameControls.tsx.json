@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/GameControls.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1756292593866,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1756292593866,
+            "name": "Commit-0",
+            "content": "'use client';\r\n\r\nimport React from 'react';\r\n\r\ninterface GameControlsProps {\r\n    onNewGame: (difficulty: 'beginner' | 'intermediate' | 'expert') => void;\r\n    onResetGame: () => void;\r\n    currentDifficulty: 'beginner' | 'intermediate' | 'expert';\r\n}\r\n\r\nexport const GameControls: React.FC<GameControlsProps> = ({\r\n    onNewGame,\r\n    onResetGame,\r\n    currentDifficulty\r\n}) => {\r\n    const difficulties = [\r\n        { key: 'beginner', label: 'Beginner' },\r\n        { key: 'intermediate', label: 'Intermediate' },\r\n        { key: 'expert', label: 'Expert' }\r\n    ] as const;\r\n\r\n    return (\r\n        <div className=\"mt-2 text-center\">\r\n            <div className=\"inline-flex bg-gray-300 p-1\" style={{ border: '1px inset #c0c0c0' }}>\r\n                {difficulties.map((difficulty) => (\r\n                    <button\r\n                        key={difficulty.key}\r\n                        onClick={() => onNewGame(difficulty.key)}\r\n                        className={`px-2 py-1 text-xs font-bold ${currentDifficulty === difficulty.key\r\n                                ? 'bg-gray-500 text-white'\r\n                                : 'bg-gray-300 text-black hover:bg-gray-400'\r\n                            }`}\r\n                        style={{\r\n                            border: currentDifficulty === difficulty.key\r\n                                ? '1px inset #c0c0c0'\r\n                                : '1px outset #c0c0c0',\r\n                            marginRight: difficulty.key !== 'expert' ? '1px' : '0'\r\n                        }}\r\n                    >\r\n                        {difficulty.label}\r\n                    </button>\r\n                ))}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n"
+        }
+    ]
+}
