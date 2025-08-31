@@ -11,8 +11,10 @@ export interface Cell {
     isMine: boolean;
     isRevealed: boolean;
     isFlagged: boolean;
+    isQuestionMark: boolean;
     neighborMines: number;
     isClickedMine?: boolean; // Track if this mine caused game over
+    isIncorrectFlag?: boolean; // Track if this flag was incorrectly placed
 }
 
 export interface GameState {
@@ -27,6 +29,7 @@ export interface GameState {
     difficulty: 'beginner' | 'intermediate' | 'expert';
     isDragging: boolean;
     dragStartCell: { row: number; col: number } | null;
+    allowQuestionMarks: boolean;
 }
 
 const DIFFICULTY_CONFIGS = {
@@ -50,6 +53,7 @@ const createBoard = (rows: number, cols: number, mines: number): Cell[][] => {
                 isMine: false,
                 isRevealed: false,
                 isFlagged: false,
+                isQuestionMark: false,
                 neighborMines: 0,
                 isClickedMine: false
             };
@@ -90,7 +94,7 @@ const countNeighborMines = (board: Cell[][], row: number, col: number): number =
     return count;
 };
 
-const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert'): GameState => {
+const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert', allowQuestionMarks: boolean = false): GameState => {
     const config = DIFFICULTY_CONFIGS[difficulty];
     const board = createBoard(config.rows, config.cols, config.mines);
 
@@ -105,16 +109,23 @@ const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert'): Gam
         endTime: null,
         difficulty,
         isDragging: false,
-        dragStartCell: null
+        dragStartCell: null,
+        allowQuestionMarks
     };
 };
 
 interface MinesweeperGameProps {
     initialDifficulty: 'beginner' | 'intermediate' | 'expert';
+    allowQuestionMarks?: boolean;
+    onAllowQuestionMarksChange?: (value: boolean) => void;
 }
 
-export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficulty }) => {
-    const [gameState, setGameState] = useState<GameState>(() => initializeGame(initialDifficulty));
+export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ 
+    initialDifficulty, 
+    allowQuestionMarks: initialAllowQuestionMarks = false,
+    onAllowQuestionMarksChange 
+}) => {
+    const [gameState, setGameState] = useState<GameState>(() => initializeGame(initialDifficulty, initialAllowQuestionMarks));
     const [isAnyCellPressed, setIsAnyCellPressed] = useState<boolean>(false);
 
 
@@ -123,6 +134,7 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
         if (gameState.gameOver || gameState.gameWon) return;
 
         const cell = gameState.board[row][col];
+        // Only flagged cells should not be clickable, question marks can be clicked
         if (cell.isFlagged || cell.isRevealed) return;
 
         // Create completely new board
@@ -135,12 +147,22 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
         if (cell.isMine) {
             // Mark this mine as the clicked one
             newBoard[row][col].isClickedMine = true;
+            newBoard[row][col].isQuestionMark = false;  // Clear question mark from clicked mine
 
-            // Only reveal mines, not all cells
+            // Reveal mines and mark incorrect flags
             for (let r = 0; r < newBoard.length; r++) {
                 for (let c = 0; c < newBoard[0].length; c++) {
                     if (newBoard[r][c].isMine) {
                         newBoard[r][c].isRevealed = true;
+                        newBoard[r][c].isQuestionMark = false;  // Clear question marks from all mines
+                    } else if (newBoard[r][c].isFlagged) {
+                        // Mark incorrectly placed flags
+                        newBoard[r][c].isIncorrectFlag = true;
+                        newBoard[r][c].isRevealed = true;
+                    } else if (newBoard[r][c].isQuestionMark) {
+                        // Reveal question mark cells normally when game is over
+                        newBoard[r][c].isRevealed = true;
+                        newBoard[r][c].isQuestionMark = false;
                     }
                 }
             }
@@ -170,6 +192,7 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
             visited.add(key);
             const currentCell = newBoard[r][c];
 
+            // Don't reveal flagged cells during flood fill, but question marks are ok
             if (currentCell.isFlagged || currentCell.isRevealed || currentCell.isMine) {
                 continue;
             }
@@ -188,9 +211,10 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
             }
         }
 
-        // Reveal all cells in toReveal array
+        // Reveal all cells in toReveal array and clear question marks
         toReveal.forEach(({ row: r, col: c }) => {
             newBoard[r][c].isRevealed = true;
+            newBoard[r][c].isQuestionMark = false;  // Clear question mark when revealing
         });
 
         // Count revealed cells
@@ -219,6 +243,7 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
         if (gameState.gameOver || gameState.gameWon) return;
 
         const cell = gameState.board[row][col];
+        // Only flagged cells should not show press state, question marks can
         if (cell.isFlagged || cell.isRevealed) return;
 
         // Set cell pressed state for shocked emoji
@@ -267,18 +292,34 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
     const handleRightClick = useCallback((row: number, col: number) => {
         if (gameState.gameOver || gameState.gameWon) return;
 
-
-
         setGameState(prev => {
             const newBoard = prev.board.map(row => [...row]);
             const cell = newBoard[row][col];
 
             if (cell.isRevealed) return prev;
 
-            const newFlaggedCount = prev.flaggedCount + (cell.isFlagged ? -1 : 1);
-            newBoard[row][col] = { ...cell, isFlagged: !cell.isFlagged };
-
-
+            let newFlaggedCount = prev.flaggedCount;
+            
+            // Cycle through states based on allowQuestionMarks setting
+            if (prev.allowQuestionMarks) {
+                // With question marks: unmarked -> flag -> question -> unmarked
+                if (!cell.isFlagged && !cell.isQuestionMark) {
+                    // Unmarked -> Flag
+                    newBoard[row][col] = { ...cell, isFlagged: true, isQuestionMark: false };
+                    newFlaggedCount++;
+                } else if (cell.isFlagged && !cell.isQuestionMark) {
+                    // Flag -> Question
+                    newBoard[row][col] = { ...cell, isFlagged: false, isQuestionMark: true };
+                    newFlaggedCount--;
+                } else if (!cell.isFlagged && cell.isQuestionMark) {
+                    // Question -> Unmarked
+                    newBoard[row][col] = { ...cell, isFlagged: false, isQuestionMark: false };
+                }
+            } else {
+                // Without question marks: unmarked -> flag -> unmarked
+                newBoard[row][col] = { ...cell, isFlagged: !cell.isFlagged, isQuestionMark: false };
+                newFlaggedCount = prev.flaggedCount + (cell.isFlagged ? -1 : 1);
+            }
 
             return {
                 ...prev,
@@ -293,8 +334,16 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ initialDifficu
 
 
     const handleResetGame = () => {
-        setGameState(initializeGame(gameState.difficulty));
+        setGameState(initializeGame(gameState.difficulty, initialAllowQuestionMarks));
     };
+    
+    // Sync allowQuestionMarks with prop
+    useEffect(() => {
+        setGameState(prev => ({
+            ...prev,
+            allowQuestionMarks: initialAllowQuestionMarks
+        }));
+    }, [initialAllowQuestionMarks]);
 
     return (
         <div style={{

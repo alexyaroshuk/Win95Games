@@ -8,6 +8,7 @@ import { useState } from 'react';
 export default function Home() {
   const [currentDifficulty, setCurrentDifficulty] = useState<'beginner' | 'intermediate' | 'expert'>('beginner');
   const [gameKey, setGameKey] = useState(0); // Force re-render when difficulty changes
+  const [allowQuestionMarks, setAllowQuestionMarks] = useState(false);
 
   const handleNewGame = (difficulty: 'beginner' | 'intermediate' | 'expert') => {
     setCurrentDifficulty(difficulty);
@@ -16,6 +17,10 @@ export default function Home() {
 
   const handleResetGame = () => {
     setGameKey(prev => prev + 1); // Force component re-mount
+  };
+
+  const handleToggleQuestionMarks = () => {
+    setAllowQuestionMarks(prev => !prev);
   };
 
   return (
@@ -33,10 +38,17 @@ export default function Home() {
               onNewGame={handleNewGame}
               onResetGame={handleResetGame}
               currentDifficulty={currentDifficulty}
+              allowQuestionMarks={allowQuestionMarks}
+              onToggleQuestionMarks={handleToggleQuestionMarks}
             />
           }
         >
-          <MinesweeperGame key={gameKey} initialDifficulty={currentDifficulty} />
+          <MinesweeperGame 
+            key={gameKey} 
+            initialDifficulty={currentDifficulty}
+            allowQuestionMarks={allowQuestionMarks}
+            onAllowQuestionMarksChange={setAllowQuestionMarks}
+          />
         </WindowsWindow>
       </div>
     </main>

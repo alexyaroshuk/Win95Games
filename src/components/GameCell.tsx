@@ -27,7 +27,35 @@ export const GameCell: React.FC<GameCellProps> = ({
     isDragging
 }) => {
     const getContent = () => {
+        // Show incorrect flag (mine with cross) for wrongly placed flags
+        if (cell.isIncorrectFlag) {
+            return (
+                <span style={{ 
+                    position: 'relative', 
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%'
+                }}>
+                    <span style={{ position: 'absolute' }}>💣</span>
+                    <span style={{ 
+                        position: 'absolute',
+                        fontSize: '14px',
+                        opacity: 0.7,
+                        zIndex: 1
+                    }}>❌</span>
+                </span>
+            );
+        }
         if (cell.isFlagged) return '🚩';
+        if (cell.isQuestionMark) {
+            return <span style={{ 
+                color: '#000000', 
+                fontWeight: 'bold', 
+                fontSize: '18px'
+            }}>?</span>;
+        }
         if (!cell.isRevealed) return '';
         if (cell.isMine) return '💣';
         if (cell.neighborMines === 0) return '';
@@ -73,7 +101,7 @@ export const GameCell: React.FC<GameCellProps> = ({
         if (cell.isRevealed) {
             return {
                 ...baseStyle,
-                backgroundColor: cell.isClickedMine ? '#ff0000' : '#f0f0f0',
+                backgroundColor: cell.isClickedMine ? '#ff0000' : cell.isIncorrectFlag ? '#ffcccc' : '#f0f0f0',
                 border: '1px solid #d0d0d0',
                 color: cell.isMine ? '#000000' : 'inherit'
             };
@@ -87,7 +115,8 @@ export const GameCell: React.FC<GameCellProps> = ({
     };
 
     const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (!cell.isRevealed && !gameOver && !gameWon) {
+        // Only show pressed state for left click (button 0), not right click (button 2)
+        if (!cell.isRevealed && !gameOver && !gameWon && e.button === 0) {
             e.currentTarget.style.border = '1px inset #c0c0c0';
             e.currentTarget.style.backgroundColor = '#f0f0f0';
         }
@@ -117,7 +146,10 @@ export const GameCell: React.FC<GameCellProps> = ({
             }}
             onMouseDown={(e) => {
                 handleMouseDown(e);
-                onMouseDown();
+                // Only trigger the parent's onMouseDown for left click
+                if (e.button === 0) {
+                    onMouseDown();
+                }
             }}
             onMouseUp={(e) => {
                 handleMouseUp(e);

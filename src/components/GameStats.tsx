@@ -66,92 +66,92 @@ export const GameStats: React.FC<GameStatsProps> = ({
 
         return (
             <div className="inline-block" style={{
-                width: '14px',
-                height: '24px',
+                width: '13px',
+                height: '23px',
                 position: 'relative',
-                marginRight: '1px'
+                marginRight: '2px'
             }}>
                 {/* Segment a (top horizontal) */}
                 <div style={{
                     position: 'absolute',
-                    top: '1px',
-                    left: '2px',
-                    width: '10px',
-                    height: '2px',
-                    backgroundColor: segmentPattern[0] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[0] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)'
+                    top: '0px',
+                    left: '1px',
+                    width: '11px',
+                    height: '3px',
+                    backgroundColor: segmentPattern[0] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[0] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%)'
                 }}></div>
 
                 {/* Segment b (top-right vertical) */}
                 <div style={{
                     position: 'absolute',
-                    top: '2px',
-                    right: '1px',
-                    width: '2px',
-                    height: '9px',
-                    backgroundColor: segmentPattern[1] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[1] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
+                    top: '1px',
+                    right: '0px',
+                    width: '3px',
+                    height: '11px',
+                    backgroundColor: segmentPattern[1] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[1] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(0% 0%, 100% 20%, 100% 80%, 0% 100%)'
                 }}></div>
 
                 {/* Segment c (bottom-right vertical) */}
                 <div style={{
                     position: 'absolute',
-                    top: '13px',
-                    right: '1px',
-                    width: '2px',
-                    height: '9px',
-                    backgroundColor: segmentPattern[2] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[2] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
+                    top: '12px',
+                    right: '0px',
+                    width: '3px',
+                    height: '11px',
+                    backgroundColor: segmentPattern[2] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[2] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(0% 0%, 100% 20%, 100% 100%, 0% 100%)'
                 }}></div>
 
                 {/* Segment d (bottom horizontal) */}
                 <div style={{
                     position: 'absolute',
-                    bottom: '1px',
-                    left: '2px',
-                    width: '10px',
-                    height: '2px',
-                    backgroundColor: segmentPattern[3] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[3] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)'
+                    bottom: '0px',
+                    left: '1px',
+                    width: '11px',
+                    height: '3px',
+                    backgroundColor: segmentPattern[3] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[3] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%)'
                 }}></div>
 
                 {/* Segment e (bottom-left vertical) */}
                 <div style={{
                     position: 'absolute',
-                    top: '13px',
-                    left: '1px',
-                    width: '2px',
-                    height: '9px',
-                    backgroundColor: segmentPattern[4] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[4] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
+                    top: '12px',
+                    left: '0px',
+                    width: '3px',
+                    height: '11px',
+                    backgroundColor: segmentPattern[4] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[4] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(0% 20%, 100% 0%, 100% 100%, 0% 100%)'
                 }}></div>
 
                 {/* Segment f (top-left vertical) */}
                 <div style={{
                     position: 'absolute',
-                    top: '2px',
-                    left: '1px',
-                    width: '2px',
-                    height: '9px',
-                    backgroundColor: segmentPattern[5] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[5] === '1' ? '0 0 3px #ff0000' : 'none',
-                    clipPath: 'polygon(0% 15%, 50% 0%, 100% 15%, 100% 85%, 50% 100%, 0% 85%)'
+                    top: '1px',
+                    left: '0px',
+                    width: '3px',
+                    height: '11px',
+                    backgroundColor: segmentPattern[5] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[5] === '1' ? '0 0 4px #ff0000' : 'none',
+                    clipPath: 'polygon(0% 20%, 100% 0%, 100% 100%, 0% 80%)'
                 }}></div>
 
                 {/* Segment g (middle horizontal) */}
                 <div style={{
                     position: 'absolute',
-                    top: '11px',
-                    left: '2px',
-                    width: '10px',
-                    height: '2px',
-                    backgroundColor: segmentPattern[6] === '1' ? '#ff0000' : '#2a0000',
-                    boxShadow: segmentPattern[6] === '1' ? '0 0 3px #ff0000' : 'none',
+                    top: '10px',
+                    left: '1px',
+                    width: '11px',
+                    height: '3px',
+                    backgroundColor: segmentPattern[6] === '1' ? '#ff0000' : '#320000',
+                    boxShadow: segmentPattern[6] === '1' ? '0 0 4px #ff0000' : 'none',
                     clipPath: 'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)'
                 }}></div>
             </div>
@@ -199,7 +199,6 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     borderRightColor: '#ffffff',
                     borderBottomColor: '#ffffff',
                     minWidth: '50px',
-                    height: '36px',
                     textAlign: 'center',
                     backgroundColor: '#000000',
                     padding: '0',
@@ -219,14 +218,12 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     onClick={onResetGame}
                     className="text-2xl"
                     style={{
-                        width: '36px',
-                        height: '36px',
                         border: '2px outset #c0c0c0',
                         borderLeftColor: '#ffffff',
                         borderTopColor: '#ffffff',
                         backgroundColor: '#c0c0c0',
                         fontFamily: 'MS Sans Serif, Arial, sans-serif',
-                        fontSize: '18px',
+                        fontSize: '16px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -257,7 +254,6 @@ export const GameStats: React.FC<GameStatsProps> = ({
                     borderRightColor: '#ffffff',
                     borderBottomColor: '#ffffff',
                     minWidth: '50px',
-                    height: '36px',
                     textAlign: 'center',
                     backgroundColor: '#000000',
                     padding: '0',

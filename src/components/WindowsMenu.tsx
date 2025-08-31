@@ -6,12 +6,16 @@ interface WindowsMenuProps {
     onNewGame: (difficulty: 'beginner' | 'intermediate' | 'expert') => void;
     onResetGame: () => void;
     currentDifficulty: 'beginner' | 'intermediate' | 'expert';
+    allowQuestionMarks: boolean;
+    onToggleQuestionMarks: () => void;
 }
 
 export const WindowsMenu: React.FC<WindowsMenuProps> = ({
     onNewGame,
     onResetGame,
-    currentDifficulty
+    currentDifficulty,
+    allowQuestionMarks,
+    onToggleQuestionMarks
 }) => {
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
@@ -221,6 +225,42 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                             }}
                         >
                             Expert
+                        </button>
+                        <div style={{
+                            borderTop: '1px solid #808080',
+                            borderBottom: '1px solid #ffffff',
+                            margin: '2px 2px'
+                        }}></div>
+                        <button
+                            onClick={() => {
+                                onToggleQuestionMarks();
+                                setActiveMenu(null);
+                            }}
+                            className="w-full text-left"
+                            style={{
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
+                                fontSize: '11px',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
+                                border: 'none',
+                                padding: '2px 8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: '100%'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
+                            }}
+                        >
+                            <span style={{ marginRight: '8px' }}>
+                                {allowQuestionMarks ? '✓' : ' '}
+                            </span>
+                            Marks (?)
                         </button>
                     </div>
                 )}
