@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Windows95Dialog } from './Windows95Dialog';
 
 interface WindowsMenuProps {
     onNewGame: (difficulty: 'beginner' | 'intermediate' | 'expert') => void;
@@ -18,6 +19,10 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
     onToggleQuestionMarks
 }) => {
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
+    const [dialogState, setDialogState] = useState<{
+        isOpen: boolean;
+        difficulty: 'beginner' | 'intermediate' | 'expert' | null;
+    }>({ isOpen: false, difficulty: null });
 
     const handleMenuClick = (menuName: string) => {
         setActiveMenu(activeMenu === menuName ? null : menuName);
@@ -33,8 +38,29 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
         setActiveMenu(null);
     };
 
+    const handleDifficultyClick = (difficulty: 'beginner' | 'intermediate' | 'expert') => {
+        if (currentDifficulty !== difficulty) {
+            setDialogState({ isOpen: true, difficulty });
+        } else {
+            handleNewGame(difficulty);
+        }
+        setActiveMenu(null);
+    };
+
+    const handleConfirmNewGame = () => {
+        if (dialogState.difficulty) {
+            handleNewGame(dialogState.difficulty);
+        }
+        setDialogState({ isOpen: false, difficulty: null });
+    };
+
+    const handleCancelNewGame = () => {
+        setDialogState({ isOpen: false, difficulty: null });
+    };
+
     return (
-        <div className="flex">
+        <>
+            <div className="flex">
             {/* File Menu */}
         <div className="relative">
                 <button
@@ -143,85 +169,73 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                         padding: '2px'
                     }}>
                         <button
-                            onClick={() => handleNewGame('beginner')}
+                            onClick={() => handleDifficultyClick('beginner')}
                             className="w-full text-left"
                             style={{
                                 fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
-                                color: currentDifficulty === 'beginner' ? '#ffffff' : '#000000',
-                                backgroundColor: currentDifficulty === 'beginner' ? '#000080' : '#c0c0c0',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
                                 border: 'none',
                                 padding: '2px 8px',
                                 display: 'block',
                                 width: '100%'
                             }}
                             onMouseEnter={(e) => {
-                                if (currentDifficulty !== 'beginner') {
-                                    e.currentTarget.style.backgroundColor = '#000080';
-                                    e.currentTarget.style.color = '#ffffff';
-                                }
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
                             }}
                             onMouseLeave={(e) => {
-                                if (currentDifficulty !== 'beginner') {
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
-                                    e.currentTarget.style.color = '#000000';
-                                }
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
                             }}
                         >
                             Beginner
                         </button>
                         <button
-                            onClick={() => handleNewGame('intermediate')}
+                            onClick={() => handleDifficultyClick('intermediate')}
                             className="w-full text-left"
                             style={{
                                 fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
-                                color: currentDifficulty === 'intermediate' ? '#ffffff' : '#000000',
-                                backgroundColor: currentDifficulty === 'intermediate' ? '#000080' : '#c0c0c0',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
                                 border: 'none',
                                 padding: '2px 8px',
                                 display: 'block',
                                 width: '100%'
                             }}
                             onMouseEnter={(e) => {
-                                if (currentDifficulty !== 'intermediate') {
-                                    e.currentTarget.style.backgroundColor = '#000080';
-                                    e.currentTarget.style.color = '#ffffff';
-                                }
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
                             }}
                             onMouseLeave={(e) => {
-                                if (currentDifficulty !== 'intermediate') {
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
-                                    e.currentTarget.style.color = '#000000';
-                                }
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
                             }}
                         >
                             Intermediate
                         </button>
                         <button
-                            onClick={() => handleNewGame('expert')}
+                            onClick={() => handleDifficultyClick('expert')}
                             className="w-full text-left"
                             style={{
                                 fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
                                 fontSize: '11px',
-                                color: currentDifficulty === 'expert' ? '#ffffff' : '#000000',
-                                backgroundColor: currentDifficulty === 'expert' ? '#000080' : '#c0c0c0',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
                                 border: 'none',
                                 padding: '2px 8px',
                                 display: 'block',
                                 width: '100%'
                             }}
                             onMouseEnter={(e) => {
-                                if (currentDifficulty !== 'expert') {
-                                    e.currentTarget.style.backgroundColor = '#000080';
-                                    e.currentTarget.style.color = '#ffffff';
-                                }
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
                             }}
                             onMouseLeave={(e) => {
-                                if (currentDifficulty !== 'expert') {
-                                    e.currentTarget.style.backgroundColor = '#c0c0c0';
-                                    e.currentTarget.style.color = '#000000';
-                                }
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
                             }}
                         >
                             Expert
@@ -343,5 +357,16 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
             )}
             </div>
         </div>
+
+            {/* Windows 95 Style Dialog */}
+            <Windows95Dialog
+                isOpen={dialogState.isOpen}
+                title="Minesweeper"
+                message="Start a new game? Current progress will be lost."
+                onConfirm={handleConfirmNewGame}
+                onCancel={handleCancelNewGame}
+                type="warning"
+            />
+        </>
     );
 };
