@@ -6,7 +6,8 @@ import { WindowsMenu } from '@/components/WindowsMenu';
 import { useState } from 'react';
 
 export default function Home() {
-  const [currentDifficulty, setCurrentDifficulty] = useState<'beginner' | 'intermediate' | 'expert'>('beginner');
+  const [currentDifficulty, setCurrentDifficulty] = useState<'beginner' | 'intermediate' | 'expert' | 'custom'>('beginner');
+  const [customSettings, setCustomSettings] = useState<{ rows: number; cols: number; mines: number }>({ rows: 9, cols: 9, mines: 10 });
   const [gameKey, setGameKey] = useState(0); // Force re-render when difficulty changes
   const [allowQuestionMarks, setAllowQuestionMarks] = useState(false);
 
@@ -23,6 +24,12 @@ export default function Home() {
     setAllowQuestionMarks(prev => !prev);
   };
 
+  const handleCustomGame = (rows: number, cols: number, mines: number) => {
+    setCustomSettings({ rows, cols, mines });
+    setCurrentDifficulty('custom');
+    setGameKey(prev => prev + 1); // Force component re-mount
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center p-4">
       <div className="flex flex-col items-center">
@@ -36,8 +43,9 @@ export default function Home() {
           menuBar={
             <WindowsMenu
               onNewGame={handleNewGame}
+              onCustomGame={handleCustomGame}
               onResetGame={handleResetGame}
-              currentDifficulty={currentDifficulty}
+              currentDifficulty={currentDifficulty as 'beginner' | 'intermediate' | 'expert'}
               allowQuestionMarks={allowQuestionMarks}
               onToggleQuestionMarks={handleToggleQuestionMarks}
             />
@@ -46,6 +54,7 @@ export default function Home() {
           <MinesweeperGame 
             key={gameKey} 
             initialDifficulty={currentDifficulty}
+            customSettings={customSettings}
             allowQuestionMarks={allowQuestionMarks}
             onAllowQuestionMarksChange={setAllowQuestionMarks}
           />

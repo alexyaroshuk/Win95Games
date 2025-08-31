@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { Windows95Dialog } from './Windows95Dialog';
+import { CustomGameDialog } from './CustomGameDialog';
 
 interface WindowsMenuProps {
     onNewGame: (difficulty: 'beginner' | 'intermediate' | 'expert') => void;
+    onCustomGame?: (rows: number, cols: number, mines: number) => void;
     onResetGame: () => void;
     currentDifficulty: 'beginner' | 'intermediate' | 'expert';
     allowQuestionMarks: boolean;
@@ -13,6 +15,7 @@ interface WindowsMenuProps {
 
 export const WindowsMenu: React.FC<WindowsMenuProps> = ({
     onNewGame,
+    onCustomGame,
     onResetGame,
     currentDifficulty,
     allowQuestionMarks,
@@ -23,6 +26,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
         isOpen: boolean;
         difficulty: 'beginner' | 'intermediate' | 'expert' | null;
     }>({ isOpen: false, difficulty: null });
+    const [customDialogOpen, setCustomDialogOpen] = useState(false);
 
     const handleMenuClick = (menuName: string) => {
         setActiveMenu(activeMenu === menuName ? null : menuName);
@@ -56,6 +60,17 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
 
     const handleCancelNewGame = () => {
         setDialogState({ isOpen: false, difficulty: null });
+    };
+
+    const handleCustomGameConfirm = (rows: number, cols: number, mines: number) => {
+        if (onCustomGame) {
+            onCustomGame(rows, cols, mines);
+        }
+        setCustomDialogOpen(false);
+    };
+
+    const handleCustomGameCancel = () => {
+        setCustomDialogOpen(false);
     };
 
     return (
@@ -163,7 +178,7 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
 
                 {activeMenu === 'game' && (
                     <div className="absolute top-full left-0 z-10" style={{
-                        minWidth: '150px',
+                        minWidth: '200px',
                         backgroundColor: '#c0c0c0',
                         border: '1px solid #808080',
                         padding: '2px'
@@ -190,7 +205,10 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                                 e.currentTarget.style.color = '#000000';
                             }}
                         >
-                            Beginner
+                            <span style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <span>Beginner</span>
+                                <span style={{ color: '#808080', marginLeft: '16px' }}>9×9 (10)</span>
+                            </span>
                         </button>
                         <button
                             onClick={() => handleDifficultyClick('intermediate')}
@@ -214,7 +232,10 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                                 e.currentTarget.style.color = '#000000';
                             }}
                         >
-                            Intermediate
+                            <span style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <span>Intermediate</span>
+                                <span style={{ color: '#808080', marginLeft: '16px' }}>16×16 (40)</span>
+                            </span>
                         </button>
                         <button
                             onClick={() => handleDifficultyClick('expert')}
@@ -238,7 +259,42 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                                 e.currentTarget.style.color = '#000000';
                             }}
                         >
-                            Expert
+                            <span style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                <span>Expert</span>
+                                <span style={{ color: '#808080', marginLeft: '16px' }}>16×30 (99)</span>
+                            </span>
+                        </button>
+                        <div style={{
+                            borderTop: '1px solid #808080',
+                            borderBottom: '1px solid #ffffff',
+                            margin: '2px 2px'
+                        }}></div>
+                        <button
+                            onClick={() => {
+                                setCustomDialogOpen(true);
+                                setActiveMenu(null);
+                            }}
+                            className="w-full text-left"
+                            style={{
+                                fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
+                                fontSize: '11px',
+                                color: '#000000',
+                                backgroundColor: '#c0c0c0',
+                                border: 'none',
+                                padding: '2px 8px',
+                                display: 'block',
+                                width: '100%'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = '#000080';
+                                e.currentTarget.style.color = '#ffffff';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = '#c0c0c0';
+                                e.currentTarget.style.color = '#000000';
+                            }}
+                        >
+                            Custom...
                         </button>
                         <div style={{
                             borderTop: '1px solid #808080',
@@ -366,6 +422,13 @@ export const WindowsMenu: React.FC<WindowsMenuProps> = ({
                 onConfirm={handleConfirmNewGame}
                 onCancel={handleCancelNewGame}
                 type="warning"
+            />
+
+            {/* Custom Game Dialog */}
+            <CustomGameDialog
+                isOpen={customDialogOpen}
+                onConfirm={handleCustomGameConfirm}
+                onCancel={handleCustomGameCancel}
             />
         </>
     );

@@ -26,7 +26,8 @@ export interface GameState {
     revealedCount: number;
     startTime: number | null;
     endTime: number | null;
-    difficulty: 'beginner' | 'intermediate' | 'expert';
+    difficulty: 'beginner' | 'intermediate' | 'expert' | 'custom';
+    customSettings?: { rows: number; cols: number; mines: number };
     isDragging: boolean;
     dragStartCell: { row: number; col: number } | null;
     allowQuestionMarks: boolean;
@@ -94,8 +95,21 @@ const countNeighborMines = (board: Cell[][], row: number, col: number): number =
     return count;
 };
 
-const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert', allowQuestionMarks: boolean = false): GameState => {
-    const config = DIFFICULTY_CONFIGS[difficulty];
+const initializeGame = (
+    difficulty: 'beginner' | 'intermediate' | 'expert' | 'custom', 
+    allowQuestionMarks: boolean = false,
+    customSettings?: { rows: number; cols: number; mines: number }
+): GameState => {
+    let config;
+    if (difficulty === 'custom' && customSettings) {
+        config = customSettings;
+    } else if (difficulty !== 'custom') {
+        config = DIFFICULTY_CONFIGS[difficulty];
+    } else {
+        // Fallback to beginner if custom but no settings
+        config = DIFFICULTY_CONFIGS.beginner;
+    }
+    
     const board = createBoard(config.rows, config.cols, config.mines);
 
     return {
@@ -108,6 +122,7 @@ const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert', allo
         startTime: null,
         endTime: null,
         difficulty,
+        customSettings: difficulty === 'custom' ? customSettings : undefined,
         isDragging: false,
         dragStartCell: null,
         allowQuestionMarks
@@ -115,17 +130,21 @@ const initializeGame = (difficulty: 'beginner' | 'intermediate' | 'expert', allo
 };
 
 interface MinesweeperGameProps {
-    initialDifficulty: 'beginner' | 'intermediate' | 'expert';
+    initialDifficulty: 'beginner' | 'intermediate' | 'expert' | 'custom';
+    customSettings?: { rows: number; cols: number; mines: number };
     allowQuestionMarks?: boolean;
     onAllowQuestionMarksChange?: (value: boolean) => void;
 }
 
 export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({ 
-    initialDifficulty, 
+    initialDifficulty,
+    customSettings,
     allowQuestionMarks: initialAllowQuestionMarks = false,
     onAllowQuestionMarksChange 
 }) => {
-    const [gameState, setGameState] = useState<GameState>(() => initializeGame(initialDifficulty, initialAllowQuestionMarks));
+    const [gameState, setGameState] = useState<GameState>(() => 
+        initializeGame(initialDifficulty, initialAllowQuestionMarks, customSettings)
+    );
     const [isAnyCellPressed, setIsAnyCellPressed] = useState<boolean>(false);
 
 
@@ -334,7 +353,7 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({
 
 
     const handleResetGame = () => {
-        setGameState(initializeGame(gameState.difficulty, initialAllowQuestionMarks));
+        setGameState(initializeGame(gameState.difficulty, initialAllowQuestionMarks, gameState.customSettings));
     };
     
     // Sync allowQuestionMarks with prop
@@ -370,6 +389,7 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({
                     onResetGame={handleResetGame}
                     isAnyCellPressed={isAnyCellPressed}
                     difficulty={gameState.difficulty}
+                    customSettings={gameState.customSettings}
                 />
 
                 <GameBoard

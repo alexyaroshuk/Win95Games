@@ -11,7 +11,8 @@ interface GameStatsProps {
     gameWon: boolean;
     onResetGame: () => void;
     isAnyCellPressed: boolean;
-    difficulty: 'beginner' | 'intermediate' | 'expert';
+    difficulty: 'beginner' | 'intermediate' | 'expert' | 'custom';
+    customSettings?: { rows: number; cols: number; mines: number };
 }
 
 export const GameStats: React.FC<GameStatsProps> = ({
@@ -23,7 +24,8 @@ export const GameStats: React.FC<GameStatsProps> = ({
     gameWon,
     onResetGame,
     isAnyCellPressed,
-    difficulty
+    difficulty,
+    customSettings
 }) => {
     const [currentTime, setCurrentTime] = useState<number>(Date.now());
 
@@ -170,12 +172,19 @@ export const GameStats: React.FC<GameStatsProps> = ({
     // Calculate width based on grid size (20px per cell)
     const getStatsWidth = () => {
         const cellSize = 20;
-        const gridSizes = {
-            beginner: { cols: 9 },
-            intermediate: { cols: 16 },
-            expert: { cols: 30 }
-        };
-        const cols = gridSizes[difficulty].cols;
+        let cols: number;
+        
+        if (difficulty === 'custom' && customSettings) {
+            cols = customSettings.cols;
+        } else {
+            const gridSizes = {
+                beginner: { cols: 9 },
+                intermediate: { cols: 16 },
+                expert: { cols: 30 }
+            };
+            cols = gridSizes[difficulty as 'beginner' | 'intermediate' | 'expert']?.cols || 9;
+        }
+        
         return cols * cellSize + 6; // +6 for the border (3px each side)
     };
 
