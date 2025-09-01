@@ -1,112 +1,83 @@
 'use client';
 
-import React from 'react';
-import { Cell } from './MinesweeperGame';
+import React, { useMemo, useCallback } from 'react';
+import { Board } from '@/core/types';
 import { GameCell } from './GameCell';
+import { win95Theme } from '@/styles/theme';
 
 interface GameBoardProps {
-    board: Cell[][];
-    onCellClick: (row: number, col: number) => void;
-    onRightClick: (row: number, col: number) => void;
-    onCellMouseDown: (row: number, col: number) => void;
-    onCellMouseUp: (row: number, col: number) => void;
-    onCellMouseEnter: (row: number, col: number) => void;
-    gameOver: boolean;
-    gameWon: boolean;
-    isDragging: boolean;
+  board: Board;
+  onCellReveal: (row: number, col: number) => void;
+  onCellFlag: (row: number, col: number) => void;
+  onMouseDownCell: () => void;
+  onMouseUpCell: () => void;
+  isGameOver: boolean;
+  isDragging: boolean;
 }
 
-export const GameBoard: React.FC<GameBoardProps> = ({
-    board,
-    onCellClick,
-    onRightClick,
-    onCellMouseDown,
-    onCellMouseUp,
-    onCellMouseEnter,
-    gameOver,
-    gameWon,
-    isDragging
+export const GameBoard = React.memo<GameBoardProps>(({
+  board,
+  onCellReveal,
+  onCellFlag,
+  onMouseDownCell,
+  onMouseUpCell,
+  isGameOver,
+  isDragging
 }) => {
-    const handleCellClick = (row: number, col: number) => {
-        onCellClick(row, col);
-    };
+  const { colors, sizes, borders } = win95Theme;
 
-    const handleRightClick = (e: React.MouseEvent, row: number, col: number) => {
-        e.preventDefault();
-        onRightClick(row, col);
-    };
+  const boardDimensions = useMemo(() => {
+    if (board.length === 0) return { width: 192, cols: 9, rows: 9 };
+    
+    const cols = board[0].length;
+    const rows = board.length;
+    const width = cols * sizes.cell + 6; // +6 for borders
+    
+    return { width, cols, rows };
+  }, [board, sizes.cell]);
 
-    const handleCellMouseDown = (row: number, col: number) => {
-        onCellMouseDown(row, col);
-    };
+  const gridStyle = useMemo(() => ({
+    display: 'grid',
+    gridTemplateColumns: `repeat(${boardDimensions.cols}, ${sizes.cell}px)`,
+    gridTemplateRows: `repeat(${boardDimensions.rows}, ${sizes.cell}px)`,
+    gap: '0px'
+  }), [boardDimensions, sizes.cell]);
 
-    const handleCellMouseUp = (row: number, col: number) => {
-        onCellMouseUp(row, col);
-    };
+  const boardStyle = useMemo(() => ({
+    ...borders.insetThick,
+    width: `${boardDimensions.width}px`,
+    boxSizing: 'border-box' as const,
+    backgroundColor: colors.backgroundDark
+  }), [borders.insetThick, boardDimensions.width, colors.backgroundDark]);
 
-    const handleCellMouseEnter = (row: number, col: number) => {
-        onCellMouseEnter(row, col);
-    };
+  const createCellHandlers = useCallback((row: number, col: number) => ({
+    onReveal: () => onCellReveal(row, col),
+    onFlag: () => onCellFlag(row, col)
+  }), [onCellReveal, onCellFlag]);
 
-    const getGridCols = () => {
-        if (board.length === 0) return 'grid-cols-9';
-        const cols = board[0].length;
-        if (cols <= 9) return 'grid-cols-9';
-        if (cols <= 16) return 'grid-cols-16';
-        return 'grid-cols-30';
-    };
+  return (
+    <div style={boardStyle}>
+      <div style={gridStyle}>
+        {board.map((row) =>
+          row.map((cell) => {
+            const handlers = createCellHandlers(cell.position.row, cell.position.col);
+            return (
+              <GameCell
+                key={cell.id}
+                cell={cell}
+                onReveal={handlers.onReveal}
+                onFlag={handlers.onFlag}
+                onMouseDownCell={onMouseDownCell}
+                onMouseUpCell={onMouseUpCell}
+                isGameOver={isGameOver}
+                isDragging={isDragging}
+              />
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
+});
 
-    const getGridStyle = () => {
-        if (board.length === 0) return {};
-        const cols = board[0].length;
-        const rows = board.length;
-
-        // Classic Minesweeper cell size
-        const cellSize = 20;
-
-        return {
-            gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,
-            gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,
-            gap: '0px'
-        };
-    };
-
-    // Calculate board width to match cells
-    const getBoardWidth = () => {
-        if (board.length === 0) return 192; // Default for 9x9
-        const cols = board[0].length;
-        const cellSize = 20;
-        return cols * cellSize + 6; // +6 for the border (3px each side)
-    };
-
-    return (
-        <div className="bg-gray-300" style={{
-            border: '3px solid',
-            borderTopColor: '#808080',
-            borderLeftColor: '#808080',
-            borderRightColor: '#ffffff',
-            borderBottomColor: '#ffffff',
-            width: `${getBoardWidth()}px`,
-            boxSizing: 'border-box'
-        }}>
-            <div className="grid" style={getGridStyle()}>
-                {board.map((row, rowIndex) =>
-                    row.map((cell) => (
-                        <GameCell
-                            key={cell.id}
-                            cell={cell}
-                            onClick={() => handleCellClick(cell.row, cell.col)}
-                            onRightClick={(e) => handleRightClick(e, cell.row, cell.col)}
-                            onMouseDown={() => handleCellMouseDown(cell.row, cell.col)}
-                            onMouseUp={() => handleCellMouseUp(cell.row, cell.col)}
-                            onMouseEnter={() => handleCellMouseEnter(cell.row, cell.col)}
-                            gameOver={gameOver}
-                            gameWon={gameWon}
-                            isDragging={isDragging}
-                        />
-                    ))
-                )}
-            </div>
-        </div>
-    );
-};
+GameBoard.displayName = 'GameBoard';

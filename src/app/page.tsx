@@ -3,21 +3,29 @@
 import { MinesweeperGame } from '@/components/MinesweeperGame';
 import { WindowsWindow } from '@/components/WindowsWindow';
 import { WindowsMenu } from '@/components/WindowsMenu';
-import { useState } from 'react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { useState, useMemo } from 'react';
+import { GameSettings, Difficulty } from '@/core/types';
 
 export default function Home() {
-  const [currentDifficulty, setCurrentDifficulty] = useState<'beginner' | 'intermediate' | 'expert' | 'custom'>('beginner');
-  const [customSettings, setCustomSettings] = useState<{ rows: number; cols: number; mines: number }>({ rows: 9, cols: 9, mines: 10 });
-  const [gameKey, setGameKey] = useState(0); // Force re-render when difficulty changes
+  const [currentDifficulty, setCurrentDifficulty] = useState<Difficulty>('beginner');
+  const [customConfig, setCustomConfig] = useState({ rows: 9, cols: 9, mines: 10 });
+  const [gameKey, setGameKey] = useState(0);
   const [allowQuestionMarks, setAllowQuestionMarks] = useState(false);
+
+  const gameSettings: GameSettings = useMemo(() => ({
+    difficulty: currentDifficulty,
+    customConfig: currentDifficulty === 'custom' ? customConfig : undefined,
+    allowQuestionMarks
+  }), [currentDifficulty, customConfig, allowQuestionMarks]);
 
   const handleNewGame = (difficulty: 'beginner' | 'intermediate' | 'expert') => {
     setCurrentDifficulty(difficulty);
-    setGameKey(prev => prev + 1); // Force component re-mount
+    setGameKey(prev => prev + 1);
   };
 
   const handleResetGame = () => {
-    setGameKey(prev => prev + 1); // Force component re-mount
+    setGameKey(prev => prev + 1);
   };
 
   const handleToggleQuestionMarks = () => {
@@ -25,9 +33,9 @@ export default function Home() {
   };
 
   const handleCustomGame = (rows: number, cols: number, mines: number) => {
-    setCustomSettings({ rows, cols, mines });
+    setCustomConfig({ rows, cols, mines });
     setCurrentDifficulty('custom');
-    setGameKey(prev => prev + 1); // Force component re-mount
+    setGameKey(prev => prev + 1);
   };
 
   return (
@@ -37,7 +45,6 @@ export default function Home() {
           🎯 Minesweeper
         </h1>
 
-        {/* Windows 95-style window container */}
         <WindowsWindow
           title="Minesweeper"
           menuBar={
@@ -51,13 +58,12 @@ export default function Home() {
             />
           }
         >
-          <MinesweeperGame 
-            key={gameKey} 
-            initialDifficulty={currentDifficulty}
-            customSettings={customSettings}
-            allowQuestionMarks={allowQuestionMarks}
-            onAllowQuestionMarksChange={setAllowQuestionMarks}
-          />
+          <ErrorBoundary>
+            <MinesweeperGame 
+              key={gameKey} 
+              initialSettings={gameSettings}
+            />
+          </ErrorBoundary>
         </WindowsWindow>
       </div>
     </main>
