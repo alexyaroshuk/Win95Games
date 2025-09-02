@@ -39,6 +39,24 @@ export default function Desktop({ games }: DesktopProps) {
       return;
     }
 
+    // Set appropriate window sizes for different games
+    const getGameSize = (gameId: string) => {
+      switch(gameId) {
+        case 'minesweeper':
+          return { width: 350, height: 450 };
+        case 'tetris':
+          return { width: 400, height: 500 };
+        case 'arkanoid':
+          return { width: 450, height: 550 };
+        case 'snake':
+          return { width: 500, height: 550 };
+        case '2048':
+          return { width: 450, height: 550 };
+        default:
+          return { width: 400, height: 500 };
+      }
+    };
+
     const newWindow: GameWindow = {
       id: gameId,
       title: game.title,
@@ -48,10 +66,7 @@ export default function Desktop({ games }: DesktopProps) {
         x: 50 + openWindows.length * 30,
         y: 50 + openWindows.length * 30
       },
-      size: {
-        width: 800,
-        height: 600
-      },
+      size: getGameSize(gameId),
       zIndex: openWindows.length + 1,
       isMaximized: false
     };

@@ -129,26 +129,13 @@ export default function MinesweeperWrapper({ isActive = false }: MinesweeperWrap
   ];
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div>
       <GameMenuBar menus={menus} />
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <MinesweeperGame 
-          key={gameKey} 
-          initialSettings={settings}
-          onSettingsChange={(newSettings) => setSettings(newSettings)}
-        />
-      </div>
+      <MinesweeperGame 
+        key={gameKey} 
+        initialSettings={settings}
+        onSettingsChange={(newSettings) => setSettings(newSettings)}
+      />
       <CustomGameDialog
         isOpen={customDialogOpen}
         onConfirm={handleCustomGame}

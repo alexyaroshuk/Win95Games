@@ -81,13 +81,11 @@ export default function GameWindowFrame({
         position: 'absolute',
         left: isMaximized ? 0 : `${window.position.x}px`,
         top: isMaximized ? 0 : `${window.position.y}px`,
-        width: isMaximized ? '100%' : `${window.size.width}px`,
-        height: isMaximized ? 'calc(100% - 28px)' : `${window.size.height}px`,
+        width: isMaximized ? '100%' : 'fit-content',
+        height: isMaximized ? 'calc(100% - 28px)' : 'fit-content',
         backgroundColor: win95Theme.colors.background,
         ...win95Theme.borders.raised,
         zIndex: window.zIndex,
-        display: 'flex',
-        flexDirection: 'column',
         cursor: isDragging ? 'move' : 'default'
       }}
       onMouseDown={() => onFocus()}
@@ -185,8 +183,6 @@ export default function GameWindowFrame({
         </button>
       </div>
       <div style={{
-        flex: 1,
-        overflow: 'auto',
         backgroundColor: win95Theme.colors.background
       }}>
         <Component isActive={isActive} />

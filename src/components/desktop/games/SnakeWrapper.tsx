@@ -83,22 +83,9 @@ export default function SnakeWrapper({ isActive = false }: SnakeWrapperProps) {
   ];
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div>
       <GameMenuBar menus={menus} />
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <SnakeGame key={gameKey} initialSpeed={speed} isActive={isActive} />
-      </div>
+      <SnakeGame key={gameKey} initialSpeed={speed} isActive={isActive} />
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

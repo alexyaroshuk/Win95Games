@@ -62,22 +62,9 @@ export default function ArkanoidWrapper({ isActive = false }: ArkanoidWrapperPro
   ];
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div>
       <GameMenuBar menus={menus} />
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <ArkanoidGame key={gameKey} isActive={isActive} />
-      </div>
+      <ArkanoidGame key={gameKey} isActive={isActive} />
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

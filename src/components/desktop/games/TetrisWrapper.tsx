@@ -68,22 +68,9 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
   ];
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div>
       <GameMenuBar menus={menus} />
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <TetrisGame key={gameKey} isActive={isActive} />
-      </div>
+      <TetrisGame key={gameKey} isActive={isActive} />
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

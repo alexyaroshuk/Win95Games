@@ -83,22 +83,9 @@ export default function Game2048Wrapper({ isActive = false }: Game2048WrapperPro
   ];
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <div>
       <GameMenuBar menus={menus} />
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <Game2048 key={gameKey} targetScore={targetScore} isActive={isActive} />
-      </div>
+      <Game2048 key={gameKey} targetScore={targetScore} isActive={isActive} />
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}
