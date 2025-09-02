@@ -11,6 +11,24 @@ interface WindowsWindowProps {
     onMaximize?: () => void;
 }
 
+// Helper function to get the appropriate icon for each game
+const getGameIcon = (title: string): string => {
+    switch(title.toLowerCase()) {
+        case 'minesweeper':
+            return '💣';
+        case 'snake':
+            return '🐍';
+        case '2048':
+            return '🎯';
+        case 'tetris':
+            return '🧱';
+        case 'arkanoid':
+            return '🎮';
+        default:
+            return '🎲';
+    }
+};
+
 export const WindowsWindow: React.FC<WindowsWindowProps> = ({
     title,
     children,
@@ -37,7 +55,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                         <div className="flex items-center" style={{
                             padding: '2px 2px'
                         }}>
-                            {/* Minesweeper Icon - Mine/Bomb */}
+                            {/* Game Icon */}
                             <div style={{
                                 width: '16px',
                                 height: '16px',
@@ -47,7 +65,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                                 justifyContent: 'center',
                                 fontSize: '12px'
                             }}>
-                                💣
+                                {getGameIcon(title)}
                             </div>
                             <span style={{
                                 fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
@@ -56,7 +74,7 @@ export const WindowsWindow: React.FC<WindowsWindowProps> = ({
                                 color: '#ffffff',
                                 letterSpacing: '0px',
                                 textShadow: '1px 1px 0px rgba(0,0,0,0.5)'
-                            }}>Minesweeper</span>
+                            }}>{title}</span>
                         </div>
 
                         {/* Control Buttons - Classic Windows 95 Style */}
