@@ -35,6 +35,13 @@ const games: GameOption[] = [
     description: 'Brick-breaking arcade game',
     route: '/games/arkanoid',
     icon: '🎮'
+  },
+  {
+    id: 'snake',
+    title: 'Snake',
+    description: 'Classic snake game',
+    route: '/games/snake',
+    icon: '🐍'
   }
 ];
 
