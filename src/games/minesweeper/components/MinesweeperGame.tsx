@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useGameEngine } from '../hooks/useGameEngine';
 import { useTimer } from '../hooks/useTimer';
 import { GameSettings } from '../core/types';
@@ -57,6 +57,16 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({
       onSettingsChange(newSettings);
     }
   }, [updateSettings, onSettingsChange]);
+
+  useEffect(() => {
+    // Update settings when they change from parent
+    // Use JSON stringify to check for actual changes, not reference changes
+    if (initialSettings) {
+      updateSettings(initialSettings);
+    }
+  }, [initialSettings.allowQuestionMarks, initialSettings.difficulty, 
+      initialSettings.customConfig?.rows, initialSettings.customConfig?.cols, 
+      initialSettings.customConfig?.mines, updateSettings]);
 
   const gameContainerStyle = useMemo(() => ({
     ...win95Theme.borders.raisedThick,

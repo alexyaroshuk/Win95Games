@@ -27,10 +27,10 @@ export const GameCell = React.memo<GameCellProps>(({
   const { colors, sizes } = win95Theme;
 
   const handleClick = useCallback(() => {
-    if (!isGameOver && !cell.isRevealed && !cell.isFlagged) {
+    if (!isGameOver && !cell.isRevealed && !cell.isFlagged && !cell.isQuestionMark) {
       onReveal();
     }
-  }, [isGameOver, cell.isRevealed, cell.isFlagged, onReveal]);
+  }, [isGameOver, cell.isRevealed, cell.isFlagged, cell.isQuestionMark, onReveal]);
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -87,7 +87,12 @@ export const GameCell = React.memo<GameCellProps>(({
     }
     if (cell.isFlagged) return '🚩';
     if (cell.isQuestionMark) {
-      return <span style={{ color: colors.text, fontWeight: 'bold', fontSize: '18px' }}>?</span>;
+      return <span style={{ 
+        color: colors.text, 
+        fontWeight: 'bold', 
+        fontSize: '14px',
+        fontFamily: win95Theme.fonts.system
+      }}>?</span>;
     }
     if (!cell.isRevealed) return '';
     if (cell.isMine) return '💣';

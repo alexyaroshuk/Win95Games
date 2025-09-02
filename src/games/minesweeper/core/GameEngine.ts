@@ -195,6 +195,20 @@ export class GameEngine {
   }
 
   updateSettings(settings: GameSettings): GameState {
+    // Check if we need to reset the game
+    const needsReset = 
+      this.state.settings.difficulty !== settings.difficulty ||
+      this.state.settings.customConfig?.rows !== settings.customConfig?.rows ||
+      this.state.settings.customConfig?.cols !== settings.customConfig?.cols ||
+      this.state.settings.customConfig?.mines !== settings.customConfig?.mines;
+
+    if (!needsReset) {
+      // Just update the allowQuestionMarks setting without resetting
+      this.state.settings.allowQuestionMarks = settings.allowQuestionMarks;
+      return this.getState();
+    }
+
+    // Reset the game with new settings
     this.firstClick = true;
     this.state = this.initializeGame(settings);
     return this.getState();
