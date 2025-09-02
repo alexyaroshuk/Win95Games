@@ -42,6 +42,13 @@ const games: GameOption[] = [
     description: 'Classic snake game',
     route: '/games/snake',
     icon: '🐍'
+  },
+  {
+    id: '2048',
+    title: '2048',
+    description: 'Number sliding puzzle game',
+    route: '/games/2048',
+    icon: '🔢'
   }
 ];
 
