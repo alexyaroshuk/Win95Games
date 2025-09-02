@@ -28,6 +28,13 @@ const games: GameOption[] = [
     description: 'Falling blocks puzzle game',
     route: '/games/tetris',
     icon: '🧱'
+  },
+  {
+    id: 'arkanoid',
+    title: 'Arkanoid',
+    description: 'Brick-breaking arcade game',
+    route: '/games/arkanoid',
+    icon: '🎮'
   }
 ];
 
