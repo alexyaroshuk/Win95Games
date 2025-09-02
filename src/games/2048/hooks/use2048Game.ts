@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Grid, Direction, GameState, AnimationState } from '../core/types';
 import { Game2048Engine } from '../core/GameEngine';
 
-export const use2048Game = () => {
+export const use2048Game = (isActive: boolean = true) => {
   const [grid, setGrid] = useState<Grid>(() => Game2048Engine.initializeGrid());
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
@@ -90,9 +90,11 @@ export const use2048Game = () => {
   }, [move]);
 
   useEffect(() => {
+    if (!isActive) return;
+    
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [handleKeyPress]);
+  }, [handleKeyPress, isActive]);
 
   const resetGame = () => {
     const newGrid = Game2048Engine.initializeGrid();

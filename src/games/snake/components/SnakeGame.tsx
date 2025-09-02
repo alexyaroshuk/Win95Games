@@ -11,9 +11,10 @@ import { GameOverDialog } from './GameOverDialog';
 interface SnakeGameProps {
   initialSpeed?: 'slow' | 'normal' | 'fast';
   isPaused?: boolean;
+  isActive?: boolean;
 }
 
-export function SnakeGame({ initialSpeed = 'normal', isPaused = false }: SnakeGameProps) {
+export function SnakeGame({ initialSpeed = 'normal', isPaused = false, isActive = true }: SnakeGameProps) {
   const {
     snake,
     food,
@@ -25,7 +26,7 @@ export function SnakeGame({ initialSpeed = 'normal', isPaused = false }: SnakeGa
     pauseGame,
     handleDirectionClick,
     setGamePaused
-  } = useSnakeGame(initialSpeed);
+  } = useSnakeGame(initialSpeed, isActive);
 
   useEffect(() => {
     if (setGamePaused) {

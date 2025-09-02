@@ -7,7 +7,11 @@ import { TetrisStats } from './TetrisStats';
 import { Win95Button } from '../../common/components/ui/Win95Button';
 import { win95Theme } from '@/styles/theme';
 
-export const TetrisGame: React.FC = () => {
+interface TetrisGameProps {
+  isActive?: boolean;
+}
+
+export const TetrisGame: React.FC<TetrisGameProps> = ({ isActive = true }) => {
   const {
     gameState,
     moveLeft,
@@ -71,11 +75,13 @@ export const TetrisGame: React.FC = () => {
   }, [gameState.gameOver, gameState.isPaused, moveLeft, moveRight, rotate, softDrop, hardDrop, togglePause, reset]);
 
   useEffect(() => {
+    if (!isActive) return;
+    
     window.addEventListener('keydown', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyPress, isActive]);
 
   const ghostPiece = useMemo(() => getGhostPiece(), [getGhostPiece, gameState.currentPiece]);
 

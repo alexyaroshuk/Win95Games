@@ -6,7 +6,11 @@ import { ArkanoidCanvas } from './ArkanoidCanvas';
 import { ArkanoidStats } from './ArkanoidStats';
 import { win95Theme } from '@/styles/theme';
 
-export const ArkanoidGame: React.FC = () => {
+interface ArkanoidGameProps {
+  isActive?: boolean;
+}
+
+export const ArkanoidGame: React.FC<ArkanoidGameProps> = ({ isActive = true }) => {
   const {
     gameState,
     movePaddleToPosition,
@@ -14,7 +18,7 @@ export const ArkanoidGame: React.FC = () => {
     pause,
     reset,
     skipLevel,
-  } = useArkanoidEngine();
+  } = useArkanoidEngine(isActive);
 
   const handleCanvasClick = () => {
     if (gameState.gameStatus === 'lost') {

@@ -4,7 +4,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { ArkanoidEngine } from '../core/ArkanoidEngine';
 import { GameState, GameConfig } from '../core/types';
 
-export const useArkanoidEngine = (config?: Partial<GameConfig>) => {
+export const useArkanoidEngine = (isActive: boolean = true, config?: Partial<GameConfig>) => {
   const engineRef = useRef<ArkanoidEngine | null>(null);
   const animationRef = useRef<number | null>(null);
   const keysPressed = useRef<Set<string>>(new Set());
@@ -36,6 +36,8 @@ export const useArkanoidEngine = (config?: Partial<GameConfig>) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isActive) return;
+      
       keysPressed.current.add(e.key);
       
       if (e.key === ' ' && engineRef.current) {
@@ -52,8 +54,13 @@ export const useArkanoidEngine = (config?: Partial<GameConfig>) => {
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
+      if (!isActive) return;
       keysPressed.current.delete(e.key);
     };
+
+    if (!isActive) {
+      keysPressed.current.clear();
+    }
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
@@ -68,7 +75,7 @@ export const useArkanoidEngine = (config?: Partial<GameConfig>) => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [gameLoop]);
+  }, [gameLoop, isActive]);
 
   const movePaddleToPosition = useCallback((x: number) => {
     if (engineRef.current) {

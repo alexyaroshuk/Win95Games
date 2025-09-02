@@ -8,7 +8,7 @@ const SPEED_SETTINGS = {
   fast: 100
 };
 
-export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal') => {
+export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal', isActive: boolean = true) => {
   const [snake, setSnake] = useState<Position[]>([{ x: 10, y: 10 }]);
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
   const [direction, setDirection] = useState<Direction>('RIGHT');
@@ -71,6 +71,8 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
 
   // Keyboard controls
   useEffect(() => {
+    if (!isActive) return;
+    
     const handleKeyPress = (e: KeyboardEvent) => {
       if (gameState !== 'playing') return;
 
@@ -83,7 +85,7 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [gameState]);
+  }, [gameState, isActive]);
 
   const startGame = () => {
     setSnake([{ x: 10, y: 10 }]);

@@ -9,9 +9,10 @@ import { GameOverDialog } from './GameOverDialog';
 
 interface Game2048Props {
   targetScore?: number;
+  isActive?: boolean;
 }
 
-export function Game2048({ targetScore = 2048 }: Game2048Props) {
+export function Game2048({ targetScore = 2048, isActive = true }: Game2048Props) {
   const {
     grid,
     score,
@@ -21,7 +22,7 @@ export function Game2048({ targetScore = 2048 }: Game2048Props) {
     move,
     resetGame,
     continueGame
-  } = use2048Game();
+  } = use2048Game(isActive);
 
   const { spacing, colors, borders } = win95Theme;
 
