@@ -5,9 +5,15 @@ export const win95Theme = {
     backgroundLight: '#ffffff',
     titleBar: '#000080',
     titleBarGradientEnd: '#0000a0',
+    activeTitle: '#000080',
+    titleText: '#ffffff',
     text: '#000000',
     textLight: '#ffffff',
     textMuted: '#808080',
+    selected: '#000080',
+    selectedText: '#ffffff',
+    borderDark: '#808080',
+    inputBackground: '#ffffff',
     ledBackground: '#000000',
     ledBackgroundDim: '#1a1a1a',
     ledOn: '#ff0000',
@@ -61,6 +67,26 @@ export const win95Theme = {
       borderLeftColor: '#808080',
       borderRightColor: '#ffffff',
       borderBottomColor: '#ffffff'
+    },
+    sunken: {
+      borderWidth: '2px',
+      borderStyle: 'solid',
+      borderTopColor: '#808080',
+      borderLeftColor: '#808080',
+      borderRightColor: '#ffffff',
+      borderBottomColor: '#ffffff'
+    },
+    dialog: {
+      borderWidth: '2px',
+      borderStyle: 'solid',
+      borderTopColor: '#ffffff',
+      borderLeftColor: '#ffffff',
+      borderRightColor: '#000000',
+      borderBottomColor: '#000000'
+    },
+    titleBar: {
+      borderWidth: '0px',
+      borderStyle: 'none'
     },
     button: {
       borderWidth: '2px',

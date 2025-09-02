@@ -5,7 +5,8 @@
       "Bash(for game in minesweeper tetris arkanoid snake 2048)",
       "Bash(do echo \"=== $game ===\")",
       "Bash(ls:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

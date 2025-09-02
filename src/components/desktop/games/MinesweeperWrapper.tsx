@@ -6,6 +6,8 @@ import { GameSettings } from '@/games/minesweeper/core/types';
 import GameMenuBar, { Menu } from '../GameMenuBar';
 import { SoundManager } from '@/utils/SoundManager';
 import { CustomGameDialog } from '../dialogs/CustomGameDialog';
+import { HelpDialog } from '@/games/common/components/HelpDialog';
+import { minesweeperInfo } from '@/games/common/gameData';
 
 const defaultSettings: GameSettings = {
   difficulty: 'beginner',
@@ -20,6 +22,8 @@ export default function MinesweeperWrapper({ isActive = false }: MinesweeperWrap
   const [settings, setSettings] = useState<GameSettings>(defaultSettings);
   const [gameKey, setGameKey] = useState(0);
   const [customDialogOpen, setCustomDialogOpen] = useState(false);
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [helpActiveTab, setHelpActiveTab] = useState<'about' | 'howToPlay'>('about');
   const [allowQuestionMarks, setAllowQuestionMarks] = useState(true);
   const soundManager = useRef(SoundManager.getInstance());
 
@@ -105,7 +109,21 @@ export default function MinesweeperWrapper({ isActive = false }: MinesweeperWrap
       label: 'Help',
       underline: 0,
       items: [
-        { label: 'About Minesweeper', action: () => {} }
+        { 
+          label: 'How to Play', 
+          action: () => {
+            setHelpActiveTab('howToPlay');
+            setHelpDialogOpen(true);
+          }
+        },
+        { separator: true },
+        { 
+          label: 'About Minesweeper', 
+          action: () => {
+            setHelpActiveTab('about');
+            setHelpDialogOpen(true);
+          }
+        }
       ]
     }
   ];
@@ -138,6 +156,12 @@ export default function MinesweeperWrapper({ isActive = false }: MinesweeperWrap
         currentRows={settings.customConfig?.rows || (settings.difficulty === 'beginner' ? 9 : settings.difficulty === 'intermediate' ? 16 : 16)}
         currentCols={settings.customConfig?.cols || (settings.difficulty === 'beginner' ? 9 : settings.difficulty === 'intermediate' ? 16 : 30)}
         currentMines={settings.customConfig?.mines || (settings.difficulty === 'beginner' ? 10 : settings.difficulty === 'intermediate' ? 40 : 99)}
+      />
+      <HelpDialog
+        isOpen={helpDialogOpen}
+        onClose={() => setHelpDialogOpen(false)}
+        gameInfo={minesweeperInfo}
+        activeTab={helpActiveTab}
       />
     </div>
   );

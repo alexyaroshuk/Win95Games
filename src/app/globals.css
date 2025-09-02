@@ -93,3 +93,101 @@
 .animate-reveal {
   animation: reveal 0.15s ease-out;
 }
+
+/* Windows 95 style scrollbar */
+.win95-scrollbar {
+  scrollbar-width: 16px;
+  scrollbar-color: #c0c0c0 #ffffff;
+}
+
+.win95-scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.win95-scrollbar::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  box-shadow: inset 1px 1px 0 #808080;
+}
+
+.win95-scrollbar::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: 
+    inset 1px 1px 0 #dfdfdf,
+    inset -1px -1px 0 #808080;
+  min-height: 30px;
+}
+
+.win95-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #dfdfdf;
+}
+
+.win95-scrollbar::-webkit-scrollbar-thumb:active {
+  background: #808080;
+  border-color: #000000 #ffffff #ffffff #000000;
+  box-shadow: inset 1px 1px 0 #808080;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: 
+    inset 1px 1px 0 #dfdfdf,
+    inset -1px -1px 0 #808080;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button:hover {
+  background: #dfdfdf;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button:active {
+  border-color: #000000 #ffffff #ffffff #000000;
+  box-shadow: inset 1px 1px 0 #808080;
+  background: #808080;
+}
+
+/* Arrow buttons */
+.win95-scrollbar::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23000000" d="M8 5L4 10h8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button:vertical:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23000000" d="M8 11L4 6h8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23000000" d="M5 8L10 4v8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.win95-scrollbar::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23000000" d="M11 8L6 4v8z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.win95-scrollbar::-webkit-scrollbar-corner {
+  background: #c0c0c0;
+}

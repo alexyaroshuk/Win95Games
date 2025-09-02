@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { Game2048 } from '@/games/2048/components/Game2048';
 import GameMenuBar, { Menu } from '../GameMenuBar';
 import { SoundManager } from '@/utils/SoundManager';
+import { HelpDialog } from '@/games/common/components/HelpDialog';
+import { game2048Info } from '@/games/common/gameData';
 
 interface Game2048WrapperProps {
   isActive?: boolean;
@@ -12,6 +14,8 @@ interface Game2048WrapperProps {
 export default function Game2048Wrapper({ isActive = false }: Game2048WrapperProps) {
   const [gameKey, setGameKey] = useState(0);
   const [targetScore, setTargetScore] = useState(2048);
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [helpActiveTab, setHelpActiveTab] = useState<'about' | 'howToPlay'>('about');
   const soundManager = useRef(SoundManager.getInstance());
 
   const handleNewGame = () => {
@@ -59,8 +63,21 @@ export default function Game2048Wrapper({ isActive = false }: Game2048WrapperPro
       label: 'Help',
       underline: 0,
       items: [
-        { label: 'How to Play', action: () => {} },
-        { label: 'About 2048', action: () => {} }
+        { 
+          label: 'How to Play', 
+          action: () => {
+            setHelpActiveTab('howToPlay');
+            setHelpDialogOpen(true);
+          }
+        },
+        { separator: true },
+        { 
+          label: 'About 2048', 
+          action: () => {
+            setHelpActiveTab('about');
+            setHelpDialogOpen(true);
+          }
+        }
       ]
     }
   ];
@@ -82,6 +99,12 @@ export default function Game2048Wrapper({ isActive = false }: Game2048WrapperPro
       }}>
         <Game2048 key={gameKey} targetScore={targetScore} isActive={isActive} />
       </div>
+      <HelpDialog
+        isOpen={helpDialogOpen}
+        onClose={() => setHelpDialogOpen(false)}
+        gameInfo={game2048Info}
+        activeTab={helpActiveTab}
+      />
     </div>
   );
 }

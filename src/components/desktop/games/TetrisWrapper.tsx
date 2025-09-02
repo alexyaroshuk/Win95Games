@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { TetrisGame } from '@/games/tetris/components/TetrisGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
 import { SoundManager } from '@/utils/SoundManager';
+import { HelpDialog } from '@/games/common/components/HelpDialog';
+import { tetrisInfo } from '@/games/common/gameData';
 
 interface TetrisWrapperProps {
   isActive?: boolean;
@@ -12,6 +14,8 @@ interface TetrisWrapperProps {
 export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) {
   const [gameKey, setGameKey] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [helpActiveTab, setHelpActiveTab] = useState<'about' | 'howToPlay'>('about');
   const soundManager = useRef(SoundManager.getInstance());
 
   const handleNewGame = () => {
@@ -44,8 +48,21 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
       label: 'Help',
       underline: 0,
       items: [
-        { label: 'Controls', action: () => {} },
-        { label: 'About Tetris', action: () => {} }
+        { 
+          label: 'How to Play', 
+          action: () => {
+            setHelpActiveTab('howToPlay');
+            setHelpDialogOpen(true);
+          }
+        },
+        { separator: true },
+        { 
+          label: 'About Tetris', 
+          action: () => {
+            setHelpActiveTab('about');
+            setHelpDialogOpen(true);
+          }
+        }
       ]
     }
   ];
@@ -67,6 +84,12 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
       }}>
         <TetrisGame key={gameKey} isActive={isActive} />
       </div>
+      <HelpDialog
+        isOpen={helpDialogOpen}
+        onClose={() => setHelpDialogOpen(false)}
+        gameInfo={tetrisInfo}
+        activeTab={helpActiveTab}
+      />
     </div>
   );
 }

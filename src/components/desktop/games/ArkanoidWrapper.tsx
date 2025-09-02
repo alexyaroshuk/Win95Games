@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { ArkanoidGame } from '@/games/arkanoid/components/ArkanoidGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
 import { SoundManager } from '@/utils/SoundManager';
+import { HelpDialog } from '@/games/common/components/HelpDialog';
+import { arkanoidInfo } from '@/games/common/gameData';
 
 interface ArkanoidWrapperProps {
   isActive?: boolean;
@@ -11,6 +13,8 @@ interface ArkanoidWrapperProps {
 
 export default function ArkanoidWrapper({ isActive = false }: ArkanoidWrapperProps) {
   const [gameKey, setGameKey] = useState(0);
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [helpActiveTab, setHelpActiveTab] = useState<'about' | 'howToPlay'>('about');
   const soundManager = useRef(SoundManager.getInstance());
 
   const handleNewGame = () => {
@@ -38,8 +42,21 @@ export default function ArkanoidWrapper({ isActive = false }: ArkanoidWrapperPro
       label: 'Help',
       underline: 0,
       items: [
-        { label: 'Controls', action: () => {} },
-        { label: 'About Arkanoid', action: () => {} }
+        { 
+          label: 'How to Play', 
+          action: () => {
+            setHelpActiveTab('howToPlay');
+            setHelpDialogOpen(true);
+          }
+        },
+        { separator: true },
+        { 
+          label: 'About Arkanoid', 
+          action: () => {
+            setHelpActiveTab('about');
+            setHelpDialogOpen(true);
+          }
+        }
       ]
     }
   ];
@@ -61,6 +78,12 @@ export default function ArkanoidWrapper({ isActive = false }: ArkanoidWrapperPro
       }}>
         <ArkanoidGame key={gameKey} isActive={isActive} />
       </div>
+      <HelpDialog
+        isOpen={helpDialogOpen}
+        onClose={() => setHelpDialogOpen(false)}
+        gameInfo={arkanoidInfo}
+        activeTab={helpActiveTab}
+      />
     </div>
   );
 }

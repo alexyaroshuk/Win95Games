@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { SnakeGame } from '@/games/snake/components/SnakeGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
 import { SoundManager } from '@/utils/SoundManager';
+import { HelpDialog } from '@/games/common/components/HelpDialog';
+import { snakeInfo } from '@/games/common/gameData';
 
 interface SnakeWrapperProps {
   isActive?: boolean;
@@ -12,6 +14,8 @@ interface SnakeWrapperProps {
 export default function SnakeWrapper({ isActive = false }: SnakeWrapperProps) {
   const [gameKey, setGameKey] = useState(0);
   const [speed, setSpeed] = useState<'slow' | 'normal' | 'fast'>('normal');
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [helpActiveTab, setHelpActiveTab] = useState<'about' | 'howToPlay'>('about');
   const soundManager = useRef(SoundManager.getInstance());
 
   const handleNewGame = () => {
@@ -59,8 +63,21 @@ export default function SnakeWrapper({ isActive = false }: SnakeWrapperProps) {
       label: 'Help',
       underline: 0,
       items: [
-        { label: 'Controls', action: () => {} },
-        { label: 'About Snake', action: () => {} }
+        { 
+          label: 'How to Play', 
+          action: () => {
+            setHelpActiveTab('howToPlay');
+            setHelpDialogOpen(true);
+          }
+        },
+        { separator: true },
+        { 
+          label: 'About Snake', 
+          action: () => {
+            setHelpActiveTab('about');
+            setHelpDialogOpen(true);
+          }
+        }
       ]
     }
   ];
@@ -82,6 +99,12 @@ export default function SnakeWrapper({ isActive = false }: SnakeWrapperProps) {
       }}>
         <SnakeGame key={gameKey} initialSpeed={speed} isActive={isActive} />
       </div>
+      <HelpDialog
+        isOpen={helpDialogOpen}
+        onClose={() => setHelpDialogOpen(false)}
+        gameInfo={snakeInfo}
+        activeTab={helpActiveTab}
+      />
     </div>
   );
 }
