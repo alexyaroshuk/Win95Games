@@ -1,263 +1,57 @@
 [{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
+	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
 	"owner": "typescript",
-	"code": "2339",
+	"code": "2741",
 	"severity": 8,
-	"message": "Property 'dialog' does not exist on type '{ raised: { borderWidth: string; borderStyle: string; borderTopColor: string; borderLeftColor: string; borderRightColor: string; borderBottomColor: string; }; raisedThick: { borderWidth: string; ... 4 more ...; borderBottomColor: string; }; ... 5 more ...; windowControlPressed: { ...; }; }'.",
+	"message": "Property 'label' is missing in type '{ separator: true; }' but required in type 'MenuItem'.",
 	"source": "ts",
-	"startLineNumber": 63,
-	"startColumn": 31,
-	"endLineNumber": 63,
-	"endColumn": 37,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'titleBar' does not exist on type '{ raised: { borderWidth: string; borderStyle: string; borderTopColor: string; borderLeftColor: string; borderRightColor: string; borderBottomColor: string; }; raisedThick: { borderWidth: string; ... 4 more ...; borderBottomColor: string; }; ... 5 more ...; windowControlPressed: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 72,
-	"startColumn": 33,
-	"endLineNumber": 72,
-	"endColumn": 41,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'activeTitle' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 73,
-	"startColumn": 46,
-	"endLineNumber": 73,
-	"endColumn": 57,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'titleText' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 74,
-	"startColumn": 36,
-	"endLineNumber": 74,
-	"endColumn": 45,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'borderDark' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 109,
-	"startColumn": 58,
-	"endLineNumber": 109,
-	"endColumn": 68,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'selected' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 116,
-	"startColumn": 76,
-	"endLineNumber": 116,
-	"endColumn": 84,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'selectedText' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 117,
-	"startColumn": 66,
-	"endLineNumber": 117,
-	"endColumn": 78,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'selected' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 129,
-	"startColumn": 80,
-	"endLineNumber": 129,
-	"endColumn": 88,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'selectedText' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 130,
-	"startColumn": 70,
-	"endLineNumber": 130,
-	"endColumn": 82,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'sunken' does not exist on type '{ raised: { borderWidth: string; borderStyle: string; borderTopColor: string; borderLeftColor: string; borderRightColor: string; borderBottomColor: string; }; raisedThick: { borderWidth: string; ... 4 more ...; borderBottomColor: string; }; ... 5 more ...; windowControlPressed: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 141,
-	"startColumn": 35,
-	"endLineNumber": 141,
-	"endColumn": 41,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2551",
-	"severity": 8,
-	"message": "Property 'inputBackground' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'. Did you mean 'background'?",
-	"source": "ts",
-	"startLineNumber": 142,
-	"startColumn": 48,
-	"endLineNumber": 142,
-	"endColumn": 63,
+	"startLineNumber": 37,
+	"startColumn": 9,
+	"endLineNumber": 37,
+	"endColumn": 28,
 	"relatedInformation": [
 		{
-			"startLineNumber": 3,
-			"startColumn": 5,
-			"endLineNumber": 3,
-			"endColumn": 26,
-			"message": "'background' is declared here.",
-			"resource": "/d:/dev/projects/minesweeper-game/src/styles/theme.ts"
+			"startLineNumber": 8,
+			"startColumn": 3,
+			"endLineNumber": 8,
+			"endColumn": 8,
+			"message": "'label' is declared here.",
+			"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/GameMenuBar.tsx"
 		}
 	],
 	"origin": "extHost1"
 },{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
+	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
 	"owner": "typescript",
-	"code": "2339",
+	"code": "2741",
 	"severity": 8,
-	"message": "Property 'borderDark' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
+	"message": "Property 'label' is missing in type '{ separator: true; }' but required in type 'MenuItem'.",
 	"source": "ts",
-	"startLineNumber": 195,
-	"startColumn": 64,
-	"endLineNumber": 195,
-	"endColumn": 74,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "Property 'borderDark' does not exist on type '{ background: string; backgroundDark: string; backgroundLight: string; titleBar: string; titleBarGradientEnd: string; text: string; textLight: string; textMuted: string; ledBackground: string; ... 8 more ...; numbers: { ...; }; }'.",
-	"source": "ts",
-	"startLineNumber": 270,
-	"startColumn": 64,
-	"endLineNumber": 270,
-	"endColumn": 74,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "eslint2",
-	"code": {
-		"value": "@next/next/no-img-element",
-		"target": {
-			"$mid": 1,
-			"path": "/docs/messages/no-img-element",
-			"scheme": "https",
-			"authority": "nextjs.org"
+	"startLineNumber": 58,
+	"startColumn": 9,
+	"endLineNumber": 58,
+	"endColumn": 28,
+	"relatedInformation": [
+		{
+			"startLineNumber": 8,
+			"startColumn": 3,
+			"endLineNumber": 8,
+			"endColumn": 8,
+			"message": "'label' is declared here.",
+			"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/GameMenuBar.tsx"
 		}
-	},
-	"severity": 4,
-	"message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
-	"source": "eslint",
-	"startLineNumber": 156,
-	"startColumn": 21,
-	"endLineNumber": 164,
-	"endColumn": 23,
+	],
 	"origin": "extHost1"
 },{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "eslint2",
-	"code": {
-		"value": "@next/next/no-img-element",
-		"target": {
-			"$mid": 1,
-			"path": "/docs/messages/no-img-element",
-			"scheme": "https",
-			"authority": "nextjs.org"
-		}
-	},
-	"severity": 4,
-	"message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
-	"source": "eslint",
-	"startLineNumber": 189,
-	"startColumn": 21,
-	"endLineNumber": 198,
-	"endColumn": 23,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "eslint2",
-	"code": {
-		"value": "@next/next/no-img-element",
-		"target": {
-			"$mid": 1,
-			"path": "/docs/messages/no-img-element",
-			"scheme": "https",
-			"authority": "nextjs.org"
-		}
-	},
-	"severity": 4,
-	"message": "Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element",
-	"source": "eslint",
-	"startLineNumber": 264,
-	"startColumn": 21,
-	"endLineNumber": 273,
-	"endColumn": 23,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
+	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
 	"owner": "sonarlint",
-	"code": "typescript:S6479",
+	"code": "typescript:S6759",
 	"severity": 4,
-	"message": "Do not use Array index in keys",
+	"message": "Mark the props of the component as read-only.",
 	"source": "sonarqube",
-	"startLineNumber": 292,
-	"startColumn": 32,
-	"endLineNumber": 292,
-	"endColumn": 37,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "sonarlint",
-	"code": "typescript:S6479",
-	"severity": 4,
-	"message": "Do not use Array index in keys",
-	"source": "sonarqube",
-	"startLineNumber": 319,
-	"startColumn": 34,
-	"endLineNumber": 319,
-	"endColumn": 39,
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/games/common/components/HelpDialog.tsx",
-	"owner": "sonarlint",
-	"code": "typescript:S6479",
-	"severity": 4,
-	"message": "Do not use Array index in keys",
-	"source": "sonarqube",
-	"startLineNumber": 345,
-	"startColumn": 34,
-	"endLineNumber": 345,
-	"endColumn": 39,
+	"startLineNumber": 14,
+	"startColumn": 39,
+	"endLineNumber": 14,
+	"endColumn": 79,
 	"origin": "extHost1"
 }]
