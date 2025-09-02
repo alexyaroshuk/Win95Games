@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Grid, Direction, GameState, AnimationState } from '../core/types';
 import { Game2048Engine } from '../core/GameEngine';
+import { SoundManager } from '@/utils/SoundManager';
 
 export const use2048Game = (isActive: boolean = true) => {
   const [grid, setGrid] = useState<Grid>(() => Game2048Engine.initializeGrid());
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameState, setGameState] = useState<GameState>('playing');
+  const soundManager = useRef(SoundManager.getInstance());
   const [animationState, setAnimationState] = useState<AnimationState>({
     newTiles: new Set(),
     mergedTiles: new Set(),
@@ -36,6 +38,12 @@ export const use2048Game = (isActive: boolean = true) => {
     const { newGrid, points, moved, mergedPositions } = Game2048Engine.moveGrid(grid, direction);
     
     if (!moved) return;
+    
+    // Play sound effects
+    soundManager.current.playTileMove();
+    if (points > 0) {
+      soundManager.current.playTileMerge();
+    }
 
     // Add new tile immediately
     const gridCopy = newGrid.map(row => [...row]);
@@ -56,8 +64,10 @@ export const use2048Game = (isActive: boolean = true) => {
       // Check win/lose conditions
       if (Game2048Engine.hasWon(gridCopy) && gameState === 'playing') {
         setGameState('won');
+        soundManager.current.playWin();
       } else if (Game2048Engine.isGameOver(gridCopy)) {
         setGameState('gameOver');
+        soundManager.current.playGameOver();
       }
     }
   }, [grid, gameState]);

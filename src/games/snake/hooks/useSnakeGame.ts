@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Position, Direction, GameState, INITIAL_SPEED } from '../core/types';
 import { SnakeGameEngine } from '../core/GameEngine';
+import { SoundManager } from '@/utils/SoundManager';
 
 const SPEED_SETTINGS = {
   slow: 200,
@@ -20,6 +21,7 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
   
   const gameLoopRef = useRef<NodeJS.Timeout>();
   const directionRef = useRef<Direction>(direction);
+  const soundManager = useRef(SoundManager.getInstance());
 
   // Load high score from localStorage
   useEffect(() => {
@@ -51,8 +53,20 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
     const updates = SnakeGameEngine.moveSnake(currentState);
 
     if (updates.snake) setSnake(updates.snake);
-    if (updates.food) setFood(updates.food);
-    if (updates.gameState) setGameState(updates.gameState);
+    if (updates.food) {
+      setFood(updates.food);
+      // Play eat sound when food is eaten (score increases)
+      if (updates.score !== undefined && updates.score > score) {
+        soundManager.current.playEatFood();
+      }
+    }
+    if (updates.gameState) {
+      setGameState(updates.gameState);
+      // Play game over sound
+      if (updates.gameState === 'gameOver') {
+        soundManager.current.playGameOver();
+      }
+    }
     if (updates.score !== undefined) setScore(updates.score);
     if (updates.speed !== undefined) setSpeed(updates.speed);
   }, [snake, food, gameState, score, highScore, speed]);

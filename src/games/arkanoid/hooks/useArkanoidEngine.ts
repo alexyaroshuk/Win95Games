@@ -3,16 +3,22 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { ArkanoidEngine } from '../core/ArkanoidEngine';
 import { GameState, GameConfig } from '../core/types';
+import { SoundManager } from '@/utils/SoundManager';
 
 export const useArkanoidEngine = (isActive: boolean = true, config?: Partial<GameConfig>) => {
   const engineRef = useRef<ArkanoidEngine | null>(null);
   const animationRef = useRef<number | null>(null);
   const keysPressed = useRef<Set<string>>(new Set());
+  const soundManager = useRef(SoundManager.getInstance());
+  const previousBrickCount = useRef<number>(0);
+  const previousBallVelocity = useRef<number>(0);
   
   const [gameState, setGameState] = useState<GameState>(() => {
     const engine = new ArkanoidEngine(config);
     engineRef.current = engine;
-    return engine.getState();
+    const state = engine.getState();
+    previousBrickCount.current = state.bricks.filter(b => !b.destroyed).length;
+    return state;
   });
 
   const gameLoop = useCallback((currentTime: number) => {
@@ -28,6 +34,39 @@ export const useArkanoidEngine = (isActive: boolean = true, config?: Partial<Gam
       }
 
       const newState = engineRef.current.update(currentTime);
+      
+      // Check for brick breaks
+      const currentBrickCount = newState.bricks.filter(b => !b.destroyed).length;
+      if (currentBrickCount < previousBrickCount.current) {
+        soundManager.current.playBrickBreak();
+      }
+      previousBrickCount.current = currentBrickCount;
+      
+      // Check for paddle hit (ball Y velocity reversal near paddle)
+      if (newState.balls.length > 0) {
+        const ball = newState.balls[0];
+        if (ball.velocity.y > 0 && previousBallVelocity.current < 0 && 
+            ball.position.y > newState.paddle.position.y - 20) {
+          soundManager.current.playPaddleHit();
+        }
+        previousBallVelocity.current = ball.velocity.y;
+      }
+      
+      // Check for ball lost
+      if (newState.balls.length === 0 && gameState.balls.length > 0) {
+        soundManager.current.playBallLost();
+      }
+      
+      // Check for game over
+      if (newState.gameStatus === 'lost' && gameState.gameStatus !== 'lost') {
+        soundManager.current.playGameOver();
+      }
+      
+      // Check for level complete
+      if (currentBrickCount === 0 && previousBrickCount.current > 0) {
+        soundManager.current.playWin();
+      }
+      
       setGameState(newState);
     }
 

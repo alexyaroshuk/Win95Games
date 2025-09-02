@@ -3,10 +3,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { TetrisEngine } from '../core/TetrisEngine';
 import { GameState, GameConfig } from '../core/types';
+import { SoundManager } from '@/utils/SoundManager';
 
 export const useTetrisEngine = (config?: Partial<GameConfig>) => {
   const engineRef = useRef<TetrisEngine | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const soundManager = useRef(SoundManager.getInstance());
   
   const [gameState, setGameState] = useState<GameState>(() => {
     const engine = new TetrisEngine(config);
@@ -25,6 +27,16 @@ export const useTetrisEngine = (config?: Partial<GameConfig>) => {
         if (!state.gameOver && !state.isPaused) {
           const newState = engineRef.current.tick();
           setGameState(newState);
+          
+          // Check for line clears
+          if (newState.linesCleared > state.linesCleared) {
+            soundManager.current.playLineClear();
+          }
+          
+          // Check for game over
+          if (newState.gameOver && !state.gameOver) {
+            soundManager.current.playGameOver();
+          }
         }
       }
     }, gameState.dropTime);
@@ -57,6 +69,7 @@ export const useTetrisEngine = (config?: Partial<GameConfig>) => {
     if (engineRef.current) {
       const newState = engineRef.current.rotate();
       setGameState(newState);
+      soundManager.current.playRotate();
     }
   }, []);
 
@@ -70,6 +83,7 @@ export const useTetrisEngine = (config?: Partial<GameConfig>) => {
   const hardDrop = useCallback(() => {
     if (engineRef.current) {
       const newState = engineRef.current.hardDrop();
+      soundManager.current.playTetrisDrop();
       setGameState(newState);
     }
   }, []);
