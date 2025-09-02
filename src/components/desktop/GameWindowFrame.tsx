@@ -8,8 +8,10 @@ interface GameWindowFrameProps {
   window: GameWindow;
   isActive: boolean;
   isMinimized: boolean;
+  isMaximized: boolean;
   onClose: () => void;
   onMinimize: () => void;
+  onMaximize: () => void;
   onFocus: () => void;
   onUpdatePosition: (position: { x: number; y: number }) => void;
   onUpdateSize: (size: { width: number; height: number }) => void;
@@ -19,8 +21,10 @@ export default function GameWindowFrame({
   window,
   isActive,
   isMinimized,
+  isMaximized,
   onClose,
   onMinimize,
+  onMaximize,
   onFocus,
   onUpdatePosition
 }: GameWindowFrameProps) {
@@ -29,7 +33,7 @@ export default function GameWindowFrame({
   const windowRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget || (e.target as HTMLElement).closest('.title-bar')) {
+    if ((e.target === e.currentTarget || (e.target as HTMLElement).closest('.title-bar')) && !isMaximized) {
       setIsDragging(true);
       setDragOffset({
         x: e.clientX - window.position.x,
@@ -38,6 +42,10 @@ export default function GameWindowFrame({
       onFocus();
       e.preventDefault();
     }
+  };
+
+  const handleTitleDoubleClick = () => {
+    onMaximize();
   };
 
   useEffect(() => {
@@ -71,10 +79,10 @@ export default function GameWindowFrame({
       ref={windowRef}
       style={{
         position: 'absolute',
-        left: `${window.position.x}px`,
-        top: `${window.position.y}px`,
-        width: `${window.size.width}px`,
-        height: `${window.size.height}px`,
+        left: isMaximized ? 0 : `${window.position.x}px`,
+        top: isMaximized ? 0 : `${window.position.y}px`,
+        width: isMaximized ? '100%' : `${window.size.width}px`,
+        height: isMaximized ? 'calc(100% - 28px)' : `${window.size.height}px`,
         backgroundColor: win95Theme.colors.background,
         ...win95Theme.borders.raised,
         zIndex: window.zIndex,
@@ -87,6 +95,7 @@ export default function GameWindowFrame({
       <div
         className="title-bar"
         onMouseDown={handleMouseDown}
+        onDoubleClick={handleTitleDoubleClick}
         style={{
           height: '20px',
           background: isActive 
@@ -134,6 +143,7 @@ export default function GameWindowFrame({
           _
         </button>
         <button
+          onClick={onMaximize}
           style={{
             width: '16px',
             height: '14px',
@@ -144,16 +154,14 @@ export default function GameWindowFrame({
             fontWeight: 'bold',
             padding: '0',
             marginRight: '2px',
-            cursor: 'not-allowed',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            lineHeight: '1',
-            opacity: 0.5
+            lineHeight: '1'
           }}
-          disabled
         >
-          □
+          {isMaximized ? '◱' : '□'}
         </button>
         <button
           onClick={onClose}

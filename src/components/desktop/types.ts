@@ -12,4 +12,13 @@ export interface GameWindow {
     height: number;
   };
   zIndex: number;
+  isMaximized?: boolean;
+  previousPosition?: {
+    x: number;
+    y: number;
+  };
+  previousSize?: {
+    width: number;
+    height: number;
+  };
 }

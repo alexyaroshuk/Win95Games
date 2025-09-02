@@ -20,6 +20,7 @@ export default function Desktop({ games }: DesktopProps) {
   const [openWindows, setOpenWindows] = useState<GameWindow[]>([]);
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [minimizedWindows, setMinimizedWindows] = useState<Set<string>>(new Set());
+  const [maximizedWindows, setMaximizedWindows] = useState<Set<string>>(new Set());
 
   const openWindow = useCallback((gameId: string) => {
     const game = games.find(g => g.id === gameId);
@@ -51,7 +52,8 @@ export default function Desktop({ games }: DesktopProps) {
         width: 800,
         height: 600
       },
-      zIndex: openWindows.length + 1
+      zIndex: openWindows.length + 1,
+      isMaximized: false
     };
 
     setOpenWindows(prev => [...prev, newWindow]);
@@ -76,6 +78,18 @@ export default function Desktop({ games }: DesktopProps) {
       setActiveWindowId(null);
     }
   }, [activeWindowId]);
+
+  const maximizeWindow = useCallback((windowId: string) => {
+    setMaximizedWindows(prev => {
+      const next = new Set(prev);
+      if (next.has(windowId)) {
+        next.delete(windowId);
+      } else {
+        next.add(windowId);
+      }
+      return next;
+    });
+  }, []);
 
   const restoreWindow = useCallback((windowId: string) => {
     setMinimizedWindows(prev => {
@@ -146,8 +160,10 @@ export default function Desktop({ games }: DesktopProps) {
         windows={openWindows}
         activeWindowId={activeWindowId}
         minimizedWindows={minimizedWindows}
+        maximizedWindows={maximizedWindows}
         onClose={closeWindow}
         onMinimize={minimizeWindow}
+        onMaximize={maximizeWindow}
         onFocus={focusWindow}
         onUpdatePosition={updateWindowPosition}
         onUpdateSize={updateWindowSize}
