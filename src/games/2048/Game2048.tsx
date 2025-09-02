@@ -7,6 +7,10 @@ import { win95Theme } from '@/styles/theme';
 
 type Grid = (number | null)[][];
 type Direction = 'up' | 'down' | 'left' | 'right';
+type AnimationState = {
+  newTiles: Set<string>;
+  mergedTiles: Set<string>;
+};
 
 const GRID_SIZE = 4;
 
@@ -31,17 +35,27 @@ export function Game2048() {
   const [gameOver, setGameOver] = useState(false);
   const [won, setWon] = useState(false);
   const [hasMoved, setHasMoved] = useState(false);
+  const [animationState, setAnimationState] = useState<AnimationState>({
+    newTiles: new Set(),
+    mergedTiles: new Set()
+  });
   
   const { colors, spacing, fonts, borders } = win95Theme;
 
   function initializeGrid(): Grid {
     const newGrid: Grid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
-    addRandomTile(newGrid);
-    addRandomTile(newGrid);
+    const result1 = addRandomTile(newGrid);
+    const result2 = addRandomTile(newGrid);
+    const initialNewTiles = new Set<string>();
+    if (result1.position) initialNewTiles.add(result1.position);
+    if (result2.position) initialNewTiles.add(result2.position);
+    setTimeout(() => {
+      setAnimationState({ newTiles: initialNewTiles, mergedTiles: new Set() });
+    }, 0);
     return newGrid;
   }
 
-  function addRandomTile(grid: Grid): boolean {
+  function addRandomTile(grid: Grid): { success: boolean; position?: string } {
     const emptyCells: [number, number][] = [];
     for (let i = 0; i < GRID_SIZE; i++) {
       for (let j = 0; j < GRID_SIZE; j++) {
@@ -51,17 +65,18 @@ export function Game2048() {
       }
     }
     
-    if (emptyCells.length === 0) return false;
+    if (emptyCells.length === 0) return { success: false };
     
     const [row, col] = emptyCells[Math.floor(Math.random() * emptyCells.length)];
     grid[row][col] = Math.random() < 0.9 ? 2 : 4;
-    return true;
+    return { success: true, position: `${row}-${col}` };
   }
 
-  function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid; points: number; moved: boolean } {
+  function moveGrid(grid: Grid, direction: Direction): { newGrid: Grid; points: number; moved: boolean; mergedPositions: Set<string> } {
     let newGrid = grid.map(row => [...row]);
     let points = 0;
     let moved = false;
+    const mergedPositions = new Set<string>();
 
     const rotate = (grid: Grid): Grid => {
       const rotated: Grid = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
@@ -73,10 +88,11 @@ export function Game2048() {
       return rotated;
     };
 
-    const moveLeft = (grid: Grid): { grid: Grid; points: number; moved: boolean } => {
+    const moveLeft = (grid: Grid): { grid: Grid; points: number; moved: boolean; mergedCells: [number, number][] } => {
       let moved = false;
       let points = 0;
       const newGrid = grid.map(row => [...row]);
+      const mergedCells: [number, number][] = [];
 
       for (let i = 0; i < GRID_SIZE; i++) {
         const row = newGrid[i].filter(cell => cell !== null);
@@ -88,6 +104,7 @@ export function Game2048() {
             points += row[j] as number;
             row.splice(j + 1, 1);
             merged.push(j);
+            mergedCells.push([i, j]);
           }
         }
         
@@ -100,27 +117,31 @@ export function Game2048() {
         newGrid[i] = newRow;
       }
 
-      return { grid: newGrid, points, moved };
+      return { grid: newGrid, points, moved, mergedCells };
     };
 
     if (direction === 'left') {
       const result = moveLeft(newGrid);
-      return { newGrid: result.grid, points: result.points, moved: result.moved };
+      result.mergedCells.forEach(([row, col]) => mergedPositions.add(`${row}-${col}`));
+      return { newGrid: result.grid, points: result.points, moved: result.moved, mergedPositions };
     } else if (direction === 'right') {
       newGrid = newGrid.map(row => row.reverse());
       const result = moveLeft(newGrid);
       newGrid = result.grid.map(row => row.reverse());
-      return { newGrid, points: result.points, moved: result.moved };
+      result.mergedCells.forEach(([row, col]) => mergedPositions.add(`${row}-${GRID_SIZE - 1 - col}`));
+      return { newGrid, points: result.points, moved: result.moved, mergedPositions };
     } else if (direction === 'up') {
       newGrid = rotate(rotate(rotate(newGrid)));
       const result = moveLeft(newGrid);
       newGrid = rotate(result.grid);
-      return { newGrid, points: result.points, moved: result.moved };
+      result.mergedCells.forEach(([row, col]) => mergedPositions.add(`${col}-${row}`));
+      return { newGrid, points: result.points, moved: result.moved, mergedPositions };
     } else {
       newGrid = rotate(newGrid);
       const result = moveLeft(newGrid);
       newGrid = rotate(rotate(rotate(result.grid)));
-      return { newGrid, points: result.points, moved: result.moved };
+      result.mergedCells.forEach(([row, col]) => mergedPositions.add(`${GRID_SIZE - 1 - col}-${row}`));
+      return { newGrid, points: result.points, moved: result.moved, mergedPositions };
     }
   }
 
@@ -142,13 +163,30 @@ export function Game2048() {
   const handleMove = useCallback((direction: Direction) => {
     if (gameOver && !won) return;
     
-    const { newGrid, points, moved } = moveGrid(grid, direction);
+    const { newGrid, points, moved, mergedPositions } = moveGrid(grid, direction);
     
     if (moved) {
-      addRandomTile(newGrid);
+      const tileResult = addRandomTile(newGrid);
       setGrid(newGrid);
       setScore(prev => prev + points);
       setHasMoved(true);
+      
+      const newTiles = new Set<string>();
+      if (tileResult.position) {
+        newTiles.add(tileResult.position);
+      }
+      
+      setAnimationState({
+        newTiles,
+        mergedTiles: mergedPositions
+      });
+      
+      setTimeout(() => {
+        setAnimationState({
+          newTiles: new Set(),
+          mergedTiles: new Set()
+        });
+      }, 300);
       
       if (checkGameOver(newGrid)) {
         setGameOver(true);
@@ -207,6 +245,7 @@ export function Game2048() {
     setGameOver(false);
     setWon(false);
     setHasMoved(false);
+    setAnimationState({ newTiles: new Set(), mergedTiles: new Set() });
   };
 
   const handleSwipeStart = useRef<{ x: number; y: number } | null>(null);
@@ -281,27 +320,34 @@ export function Game2048() {
             gap: '4px'
           }}>
             {grid.map((row, rowIndex) =>
-              row.map((cell, colIndex) => (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  style={{
-                    width: '70px',
-                    height: '70px',
-                    backgroundColor: cell ? tileColors[cell]?.bg || '#800000' : '#c0c0c0',
-                    color: cell ? tileColors[cell]?.text || '#ffffff' : 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontFamily: fonts.system,
-                    fontSize: cell && cell >= 1024 ? '20px' : cell && cell >= 128 ? '24px' : '28px',
-                    fontWeight: 'bold',
-                    ...(cell ? borders.raised : borders.inset),
-                    transition: 'all 0.15s ease-in-out'
-                  }}
-                >
-                  {cell || ''}
-                </div>
-              ))
+              row.map((cell, colIndex) => {
+                const key = `${rowIndex}-${colIndex}`;
+                const isNew = animationState.newTiles.has(key);
+                const isMerged = animationState.mergedTiles.has(key);
+                
+                return (
+                  <div
+                    key={key}
+                    className={isNew ? 'tile-spawn' : isMerged ? 'tile-merge' : ''}
+                    style={{
+                      width: '70px',
+                      height: '70px',
+                      backgroundColor: cell ? tileColors[cell]?.bg || '#800000' : '#c0c0c0',
+                      color: cell ? tileColors[cell]?.text || '#ffffff' : 'transparent',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontFamily: fonts.system,
+                      fontSize: cell && cell >= 1024 ? '20px' : cell && cell >= 128 ? '24px' : '28px',
+                      fontWeight: 'bold',
+                      ...(cell ? borders.raised : borders.inset),
+                      transition: 'all 0.15s ease-in-out'
+                    }}
+                  >
+                    {cell || ''}
+                  </div>
+                );
+              })
             )}
           </div>
 
@@ -411,6 +457,41 @@ export function Game2048() {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes tileSpawn {
+          0% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes tileMerge {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.2);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        
+        .tile-spawn {
+          animation: tileSpawn 0.3s ease-out;
+        }
+        
+        .tile-merge {
+          animation: tileMerge 0.3s ease-out;
+        }
+      `}</style>
     </WindowsWindow>
   );
 }
