@@ -9,7 +9,9 @@ export const use2048Game = () => {
   const [gameState, setGameState] = useState<GameState>('playing');
   const [animationState, setAnimationState] = useState<AnimationState>({
     newTiles: new Set(),
-    mergedTiles: new Set()
+    mergedTiles: new Set(),
+    direction: null,
+    isMoving: false
   });
 
   // Load best score
@@ -35,30 +37,29 @@ export const use2048Game = () => {
     
     if (!moved) return;
 
-    setGrid(newGrid);
-    setScore(prev => prev + points);
-    setAnimationState({ newTiles: new Set(), mergedTiles: mergedPositions });
-
-    // Add new tile after move
-    setTimeout(() => {
-      const gridCopy = newGrid.map(row => [...row]);
-      const result = Game2048Engine.addRandomTile(gridCopy);
+    // Add new tile immediately
+    const gridCopy = newGrid.map(row => [...row]);
+    const result = Game2048Engine.addRandomTile(gridCopy);
+    
+    if (result.success) {
+      setGrid(gridCopy);
+      setScore(prev => prev + points);
       
-      if (result.success) {
-        setGrid(gridCopy);
-        setAnimationState({ 
-          newTiles: new Set(result.position ? [result.position] : []), 
-          mergedTiles: new Set() 
-        });
+      // Animate both the move and new tile at the same time
+      setAnimationState({ 
+        newTiles: new Set(result.position ? [result.position] : []), 
+        mergedTiles: mergedPositions,
+        direction,
+        isMoving: false
+      });
 
-        // Check win/lose conditions
-        if (Game2048Engine.hasWon(gridCopy) && gameState === 'playing') {
-          setGameState('won');
-        } else if (Game2048Engine.isGameOver(gridCopy)) {
-          setGameState('gameOver');
-        }
+      // Check win/lose conditions
+      if (Game2048Engine.hasWon(gridCopy) && gameState === 'playing') {
+        setGameState('won');
+      } else if (Game2048Engine.isGameOver(gridCopy)) {
+        setGameState('gameOver');
       }
-    }, 150);
+    }
   }, [grid, gameState]);
 
   const handleKeyPress = useCallback((e: KeyboardEvent) => {
@@ -100,7 +101,9 @@ export const use2048Game = () => {
     setGameState('playing');
     setAnimationState({ 
       newTiles: new Set(['0-0', '0-1', '0-2', '0-3', '1-0', '1-1', '1-2', '1-3', '2-0', '2-1', '2-2', '2-3', '3-0', '3-1', '3-2', '3-3']), 
-      mergedTiles: new Set() 
+      mergedTiles: new Set(),
+      direction: null,
+      isMoving: false
     });
   };
 

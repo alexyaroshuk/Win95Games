@@ -20,27 +20,35 @@ export const GameBoard: React.FC<GameBoardProps> = ({ grid, animationState }) =>
     if (!value) {
       return {
         backgroundColor: '#c0c0c0',
-        color: 'transparent'
+        color: 'transparent',
+        ...borders.raised
       };
     }
 
     const colors = TILE_COLORS[value] || { bg: '#800000', text: '#ffffff' };
+    
+    let animation = 'none';
+    if (isNew) {
+      animation = 'fadeIn 0.2s ease-in';
+    } else if (isMerged) {
+      animation = 'merge 0.2s ease-in';
+    }
     
     return {
       backgroundColor: colors.bg,
       color: colors.text,
       fontWeight: 'bold',
       fontSize: value >= 1000 ? '20px' : value >= 100 ? '24px' : '28px',
-      animation: isNew ? 'slideIn 0.15s ease-in' : isMerged ? 'pop 0.15s ease-in' : 'none',
-      transform: isNew ? 'scale(1)' : isMerged ? 'scale(1)' : 'scale(1)',
-      transition: 'all 0.15s ease-in-out'
+      animation,
+      transition: 'all 0.15s ease-in-out',
+      ...borders.raised
     };
   };
 
   return (
     <>
       <style jsx>{`
-        @keyframes slideIn {
+        @keyframes fadeIn {
           from {
             transform: scale(0);
             opacity: 0;
@@ -51,7 +59,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({ grid, animationState }) =>
           }
         }
         
-        @keyframes pop {
+        @keyframes merge {
           0% {
             transform: scale(1);
           }
@@ -80,7 +88,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({ grid, animationState }) =>
             <div
               key={`${rowIndex}-${colIndex}`}
               style={{
-                ...borders.raised,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

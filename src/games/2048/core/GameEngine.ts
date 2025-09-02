@@ -83,9 +83,9 @@ export class Game2048Engine {
     } else if (direction === 'right') {
       newGrid = rotateGrid(rotateGrid(slideLeft(rotateGrid(rotateGrid(newGrid)))));
     } else if (direction === 'up') {
-      newGrid = rotateGrid(rotateGrid(rotateGrid(slideLeft(rotateGrid(newGrid)))));
-    } else if (direction === 'down') {
       newGrid = rotateGrid(slideLeft(rotateGrid(rotateGrid(rotateGrid(newGrid)))));
+    } else if (direction === 'down') {
+      newGrid = rotateGrid(rotateGrid(rotateGrid(slideLeft(rotateGrid(newGrid)))));
     }
 
     return { newGrid, points, moved, mergedPositions };
