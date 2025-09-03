@@ -8,6 +8,7 @@ const TetrisWrapper = dynamic(() => import('@/components/desktop/games/TetrisWra
 const ArkanoidWrapper = dynamic(() => import('@/components/desktop/games/ArkanoidWrapper'), { ssr: false });
 const SnakeWrapper = dynamic(() => import('@/components/desktop/games/SnakeWrapper'), { ssr: false });
 const Game2048Wrapper = dynamic(() => import('@/components/desktop/games/Game2048Wrapper'), { ssr: false });
+const PongWrapper = dynamic(() => import('@/components/desktop/games/PongWrapper'), { ssr: false });
 
 const games = [
   {
@@ -39,6 +40,12 @@ const games = [
     title: '2048',
     icon: '🔢',
     component: Game2048Wrapper
+  },
+  {
+    id: 'pong',
+    title: 'Pong',
+    icon: '🏓',
+    component: PongWrapper
   }
 ];
 

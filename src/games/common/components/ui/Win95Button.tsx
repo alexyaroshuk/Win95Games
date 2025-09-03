@@ -5,13 +5,16 @@ import { createButtonStyle } from '@/styles/theme';
 
 interface Win95ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'default' | 'icon';
+  variant?: 'default' | 'icon' | 'primary';
+  fullWidth?: boolean;
 }
 
 export const Win95Button: React.FC<Win95ButtonProps> = React.memo(({
   children,
   variant = 'default',
   onClick,
+  fullWidth = false,
+  style,
   ...props
 }) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -35,7 +38,9 @@ export const Win95Button: React.FC<Win95ButtonProps> = React.memo(({
     fontFamily: 'Tahoma, "MS Sans Serif", Arial, sans-serif',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: fullWidth ? '100%' : undefined,
+    ...style
   };
 
   return (

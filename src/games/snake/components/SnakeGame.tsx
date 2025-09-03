@@ -54,11 +54,20 @@ export function SnakeGame({ initialSpeed = 'normal', isPaused = false, isActive 
           )}
         </div>
 
-        <SnakeStats 
-          score={score} 
-          highScore={highScore} 
-          speed={speed} 
-        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.lg }}>
+          <SnakeStats 
+            score={score} 
+            highScore={highScore} 
+            speed={speed} 
+          />
+          
+          <GameControls
+            gameState={gameState}
+            onStart={startGame}
+            onPause={pauseGame}
+            onDirectionClick={handleDirectionClick}
+          />
+        </div>
       </div>
     </div>
   );

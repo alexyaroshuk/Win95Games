@@ -1,57 +1,15 @@
-[{
-	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
-	"owner": "typescript",
-	"code": "2741",
-	"severity": 8,
-	"message": "Property 'label' is missing in type '{ separator: true; }' but required in type 'MenuItem'.",
-	"source": "ts",
-	"startLineNumber": 37,
-	"startColumn": 9,
-	"endLineNumber": 37,
-	"endColumn": 28,
-	"relatedInformation": [
-		{
-			"startLineNumber": 8,
-			"startColumn": 3,
-			"endLineNumber": 8,
-			"endColumn": 8,
-			"message": "'label' is declared here.",
-			"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/GameMenuBar.tsx"
-		}
-	],
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
-	"owner": "typescript",
-	"code": "2741",
-	"severity": 8,
-	"message": "Property 'label' is missing in type '{ separator: true; }' but required in type 'MenuItem'.",
-	"source": "ts",
-	"startLineNumber": 58,
-	"startColumn": 9,
-	"endLineNumber": 58,
-	"endColumn": 28,
-	"relatedInformation": [
-		{
-			"startLineNumber": 8,
-			"startColumn": 3,
-			"endLineNumber": 8,
-			"endColumn": 8,
-			"message": "'label' is declared here.",
-			"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/GameMenuBar.tsx"
-		}
-	],
-	"origin": "extHost1"
-},{
-	"resource": "/d:/dev/projects/minesweeper-game/src/components/desktop/games/TetrisWrapper.tsx",
-	"owner": "sonarlint",
-	"code": "typescript:S6759",
-	"severity": 4,
-	"message": "Mark the props of the component as read-only.",
-	"source": "sonarqube",
-	"startLineNumber": 14,
-	"startColumn": 39,
-	"endLineNumber": 14,
-	"endColumn": 79,
-	"origin": "extHost1"
-}]
+Console Error
+
+
+React does not recognize the `fullWidth` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `fullwidth` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+
+src/games/common/components/ui/Win95Button.tsx (42:5) @ Win95Button
+
+
+  40 |
+  41 |   return (
+> 42 |     <button
+     |     ^
+  43 |       {...props}
+  44 |       style={buttonStyle}
+  45 |       onClick={onClick}
