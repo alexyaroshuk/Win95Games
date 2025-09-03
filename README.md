@@ -1,23 +1,24 @@
-# 🎯 Minesweeper Game
+# 🖥️ Win95Games
 
-A modern, beautiful Minesweeper game built with Next.js, TypeScript, and React. Deploy to Vercel with one click!
+A collection of classic Windows 95 games built with Next.js, TypeScript, and React. Deploy to Vercel with one click!
 
 ## 🚀 Features
 
-- **Three Difficulty Levels**: Beginner (9x9, 10 mines), Intermediate (16x16, 40 mines), Expert (16x30, 99 mines)
-- **Beautiful UI**: Modern design with smooth animations and responsive layout
-- **Game Statistics**: Mine counter, flag counter, and timer
+- **6 Classic Games**: Minesweeper, Tetris, Arkanoid, Snake, 2048, and Pong
+- **Windows 95 UI**: Authentic retro desktop experience with windows and menus
+- **Beautiful UI**: Modern implementation of classic games with smooth animations
 - **Responsive Design**: Works perfectly on desktop and mobile devices
 - **TypeScript**: Full type safety for better development experience
 - **Accessibility**: Proper ARIA labels and keyboard support
 
-## 🎮 How to Play
+## 🎮 Available Games
 
-1. **Left Click**: Reveal a cell
-2. **Right Click**: Place/remove a flag on a suspected mine
-3. **Numbers**: Show how many mines are adjacent to that cell
-4. **Goal**: Reveal all non-mine cells to win
-5. **Avoid**: Clicking on mines (💣) - that's game over!
+1. **Minesweeper** - Clear a minefield by uncovering safe squares while avoiding hidden mines
+2. **Tetris** - Arrange falling blocks to create complete horizontal lines
+3. **Arkanoid** - Break all bricks with a bouncing ball and paddle
+4. **Snake** - Guide a growing snake to eat food while avoiding walls and your tail
+5. **2048** - Slide numbered tiles to combine them and reach 2048
+6. **Pong** - Classic two-player paddle game
 
 ## 🛠️ Tech Stack
 
@@ -36,8 +37,8 @@ A modern, beautiful Minesweeper game built with Next.js, TypeScript, and React. 
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd minesweeper-game
+git clone https://github.com/alexyaroshuk/Win95Games.git
+cd Win95Games
 ```
 
 2. Install dependencies:
@@ -68,8 +69,8 @@ npm start
 ## 🎨 Customization
 
 - **Colors**: Modify the color scheme in `tailwind.config.ts`
-- **Grid Sizes**: Adjust difficulty configurations in `MinesweeperGame.tsx`
-- **Styling**: Customize cell appearance in `GameCell.tsx`
+- **Games**: Add new games in the `src/games/` directory
+- **Windows**: Customize window appearance in `src/components/desktop/`
 
 ## 📱 Responsive Design
 
@@ -85,27 +86,30 @@ The game automatically adapts to different screen sizes:
 src/
 ├── app/                 # Next.js app router
 ├── components/          # React components
-│   ├── MinesweeperGame.tsx    # Main game logic
-│   ├── GameBoard.tsx          # Game board container
-│   ├── GameCell.tsx           # Individual cell component
-│   ├── GameControls.tsx       # Difficulty and reset controls
-│   └── GameStats.tsx          # Statistics display
+│   └── desktop/         # Desktop UI components
+│       └── games/       # Game wrapper components
+├── games/               # Individual game implementations
+│   ├── minesweeper/     # Minesweeper game
+│   ├── tetris/          # Tetris game
+│   ├── arkanoid/        # Arkanoid game
+│   ├── snake/           # Snake game
+│   ├── 2048/            # 2048 puzzle game
+│   └── pong/            # Pong game
 ```
 
 ### Key Components
 
-- **MinesweeperGame**: Main game state management and logic
-- **GameBoard**: Renders the grid of cells
-- **GameCell**: Individual cell with click handling
-- **GameControls**: Difficulty selection and game controls
-- **GameStats**: Timer, mine counter, and flag counter
+- **Desktop Environment**: Windows 95-style desktop with window management
+- **Game Windows**: Individual windows for each game with minimize/maximize/close controls
+- **Game Library**: 6 fully playable classic games
+- **Retro UI**: Authentic Windows 95 look and feel
 
-## 🎯 Game Logic
+## 🎯 Features
 
-- Mines are randomly placed on first click
-- Flood-fill algorithm reveals connected empty cells
-- Win condition: all non-mine cells revealed
-- Game over: clicking on a mine
+- Authentic Windows 95 desktop experience
+- Multiple classic games in one application
+- Window management with minimize, maximize, and close
+- Retro UI with modern performance
 
 ## 🚀 Performance Features
 
@@ -124,4 +128,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-**Enjoy playing Minesweeper! 🎉**
+**Enjoy playing Win95Games! 🎉**
