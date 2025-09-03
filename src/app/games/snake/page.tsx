@@ -39,7 +39,7 @@ export default function SnakePage() {
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-4 mb-8">
           <Link href="/games">
-            <Win95Button variant="secondary">← Back to Games</Win95Button>
+            <Win95Button variant="default">← Back to Games</Win95Button>
           </Link>
           <h1 className="text-4xl md:text-6xl font-bold text-white text-center tracking-wider">
             🐍 Snake

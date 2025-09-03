@@ -1,15 +1,49 @@
-Console Error
+[{
+	"resource": "/D:/dev/projects/Win95Games/src/app/games/arkanoid/page.tsx",
+	"owner": "typescript",
+	"code": "2769",
+	"severity": 8,
+	"message": "No overload matches this call.\n  Overload 1 of 2, '(props: ArkanoidGameProps): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.\n    Type '{ key: number; difficulty: \"easy\" | \"hard\" | \"normal\"; }' is not assignable to type 'IntrinsicAttributes & ArkanoidGameProps'.\n      Property 'difficulty' does not exist on type 'IntrinsicAttributes & ArkanoidGameProps'.\n  Overload 2 of 2, '(props: ArkanoidGameProps, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.\n    Type '{ key: number; difficulty: \"easy\" | \"hard\" | \"normal\"; }' is not assignable to type 'IntrinsicAttributes & ArkanoidGameProps'.\n      Property 'difficulty' does not exist on type 'IntrinsicAttributes & ArkanoidGameProps'.",
+	"source": "ts",
+	"startLineNumber": 84,
+	"startColumn": 41,
+	"endLineNumber": 84,
+	"endColumn": 51,
+	"origin": "extHost1"
+}]
 
-
-React does not recognize the `fullWidth` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `fullwidth` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
-
-src/games/common/components/ui/Win95Button.tsx (42:5) @ Win95Button
-
-
-  40 |
-  41 |   return (
-> 42 |     <button
-     |     ^
-  43 |       {...props}
-  44 |       style={buttonStyle}
-  45 |       onClick={onClick}
+[{
+	"resource": "/D:/dev/projects/Win95Games/src/components/desktop/games/PongWrapper.tsx",
+	"owner": "typescript",
+	"code": "2322",
+	"severity": 8,
+	"message": "Type '{ name: string; description: string; howToPlay: string[]; tips: string[]; credits: string; }' is not assignable to type 'GameInfo'.\n  Types of property 'credits' are incompatible.\n    Type 'string' has no properties in common with type '{ original?: string | undefined; version?: string | undefined; year?: string | undefined; }'.",
+	"source": "ts",
+	"startLineNumber": 113,
+	"startColumn": 9,
+	"endLineNumber": 113,
+	"endColumn": 17,
+	"relatedInformation": [
+		{
+			"startLineNumber": 33,
+			"startColumn": 3,
+			"endLineNumber": 33,
+			"endColumn": 11,
+			"message": "The expected type comes from property 'gameInfo' which is declared here on type 'IntrinsicAttributes & HelpDialogProps'",
+			"resource": "/d:/dev/projects/Win95Games/src/games/common/components/HelpDialog.tsx"
+		}
+	],
+	"origin": "extHost1"
+},{
+	"resource": "/D:/dev/projects/Win95Games/src/components/desktop/games/PongWrapper.tsx",
+	"owner": "sonarlint",
+	"code": "typescript:S6759",
+	"severity": 4,
+	"message": "Mark the props of the component as read-only.",
+	"source": "sonarqube",
+	"startLineNumber": 35,
+	"startColumn": 37,
+	"endLineNumber": 35,
+	"endColumn": 75,
+	"origin": "extHost1"
+}]

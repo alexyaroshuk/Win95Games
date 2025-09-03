@@ -88,12 +88,12 @@ export const ArkanoidStats: React.FC<ArkanoidStatsProps> = ({
         >
           {gameState.gameStatus === 'paused' ? 'Resume' : 'Pause'}
         </Win95Button>
-        <Win95Button variant="secondary" onClick={onReset}>
+        <Win95Button variant="default" onClick={onReset}>
           New Game
         </Win95Button>
         {onSkipLevel && (
           <Win95Button 
-            variant="secondary" 
+            variant="default" 
             onClick={onSkipLevel}
             style={{ backgroundColor: '#ff6b6b' }}
           >

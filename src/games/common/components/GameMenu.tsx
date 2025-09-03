@@ -279,6 +279,7 @@ export const GameMenu: React.FC<GameMenuProps> = ({
       {/* New Game Confirmation Dialog */}
       {showNewGameDialog && (
         <Windows95Dialog
+          isOpen={true}
           title="New Game"
           message="Start a new game? Your current progress will be lost."
           onConfirm={confirmNewGame}

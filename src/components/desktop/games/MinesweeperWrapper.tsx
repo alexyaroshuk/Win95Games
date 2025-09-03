@@ -18,7 +18,7 @@ interface MinesweeperWrapperProps {
   isActive?: boolean;
 }
 
-export default function MinesweeperWrapper({ isActive = false }: MinesweeperWrapperProps) {
+export default function MinesweeperWrapper({}: MinesweeperWrapperProps) {
   const [settings, setSettings] = useState<GameSettings>(defaultSettings);
   const [gameKey, setGameKey] = useState(0);
   const [customDialogOpen, setCustomDialogOpen] = useState(false);

@@ -1,8 +1,12 @@
+export interface GameComponentProps {
+  isActive?: boolean;
+}
+
 export interface GameWindow {
   id: string;
   title: string;
   icon: string;
-  component: React.ComponentType<any>;
+  component: React.ComponentType<GameComponentProps>;
   position: {
     x: number;
     y: number;

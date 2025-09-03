@@ -25,6 +25,7 @@ export interface GameState {
   nextPiece: TetrominoType;
   score: number;
   lines: number;
+  linesCleared: number;
   level: number;
   gameOver: boolean;
   isPaused: boolean;

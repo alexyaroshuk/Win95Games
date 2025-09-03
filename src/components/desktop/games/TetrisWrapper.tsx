@@ -34,7 +34,7 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
       items: [
         { label: 'New Game', action: handleNewGame, hotkey: 'F2' },
         { label: 'Pause', action: handlePause, hotkey: 'P' },
-        { label: '', separator: true },
+        { separator: true },
         { 
           label: 'Sound', 
           action: () => {
@@ -55,7 +55,7 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
             setHelpDialogOpen(true);
           }
         },
-        { label: '', separator: true },
+        { separator: true },
         { 
           label: 'About Tetris', 
           action: () => {

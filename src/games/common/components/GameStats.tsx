@@ -45,11 +45,12 @@ export const GameStats: React.FC<GameStatsProps> = ({ stats }) => {
             {stat.label.toUpperCase()}
           </div>
           <LEDDisplay 
-            value={stat.value.toString().padStart(
+            value={typeof stat.value === 'string' ? parseInt(stat.value, 10) || 0 : stat.value}
+            digits={
               stat.label === 'TIME' ? 3 : 
               stat.label === 'LEVEL' ? 2 : 
-              6, '0'
-            )} 
+              6
+            } 
           />
         </div>
       ))}

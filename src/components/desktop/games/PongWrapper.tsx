@@ -13,22 +13,33 @@ interface PongWrapperProps {
 const pongInfo = {
   name: 'Pong',
   description: 'The classic arcade game that started it all! Battle against the AI in this timeless tennis-like game.',
-  howToPlay: [
-    'Use ↑/W to move your paddle up',
-    'Use ↓/S to move your paddle down',
-    'Press SPACE to start a new game',
-    'Press P to pause/resume',
-    'Press R to reset the game',
-    'First to 11 points wins!',
-    'The ball speeds up with each hit',
-    'Try different difficulty levels for more challenge'
-  ],
-  tips: [
-    'Position your paddle to hit the ball at different angles',
-    'The ball direction changes based on where it hits your paddle',
-    'Watch the AI patterns to anticipate the ball movement',
-    'On harder difficulties, the AI reacts faster'
-  ]
+  credits: {
+    original: 'Atari, Inc.',
+    version: 'Classic Arcade Version',
+    year: '1972'
+  },
+  howToPlay: {
+    objective: 'Score points by getting the ball past your opponent. First to 11 points wins!',
+    controls: [
+      { control: '↑/W', action: 'Move paddle up' },
+      { control: '↓/S', action: 'Move paddle down' },
+      { control: 'Space', action: 'Start new game' },
+      { control: 'P', action: 'Pause/Resume' },
+      { control: 'R', action: 'Reset game' }
+    ],
+    rules: [
+      'First player to reach 11 points wins the game',
+      'The ball speeds up with each successful hit',
+      'Ball direction changes based on paddle hit position',
+      'Missing the ball gives a point to your opponent'
+    ],
+    tips: [
+      'Position your paddle to hit the ball at different angles',
+      'The ball direction changes based on where it hits your paddle',
+      'Watch the AI patterns to anticipate the ball movement',
+      'On harder difficulties, the AI reacts faster'
+    ]
+  }
 };
 
 export default function PongWrapper({ isActive = false }: PongWrapperProps) {

@@ -5,7 +5,7 @@ import { win95Theme } from '@/styles/theme';
 import { SoundManager } from '@/utils/SoundManager';
 
 export interface MenuItem {
-  label: string;
+  label?: string;
   action?: () => void;
   items?: MenuItem[];
   separator?: boolean;
@@ -21,17 +21,14 @@ export interface Menu {
 
 interface GameMenuBarProps {
   menus: Menu[];
-  onMenuAction?: (action: string) => void;
 }
 
-export default function GameMenuBar({ menus, onMenuAction }: GameMenuBarProps) {
+export default function GameMenuBar({ menus }: GameMenuBarProps) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [soundEnabled, setSoundEnabled] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const soundManager = useRef(SoundManager.getInstance());
 
   useEffect(() => {
-    setSoundEnabled(soundManager.current.isEnabled());
   }, []);
 
   useEffect(() => {
@@ -109,7 +106,7 @@ export default function GameMenuBar({ menus, onMenuAction }: GameMenuBarProps) {
           }}>
             {item.checked ? '✓' : ''}
           </span>
-          {item.label}
+          {item.label || ''}
         </span>
         {item.hotkey && (
           <span style={{ marginLeft: '20px', color: '#808080' }}>

@@ -5,14 +5,14 @@ import { win95Theme } from '@/styles/theme';
 import Taskbar from './Taskbar';
 import DesktopShortcut from './DesktopShortcut';
 import WindowManager from './WindowManager';
-import { GameWindow } from './types';
+import { GameWindow, GameComponentProps } from './types';
 
 interface DesktopProps {
   games: Array<{
     id: string;
     title: string;
     icon: string;
-    component: React.ComponentType<any>;
+    component: React.ComponentType<GameComponentProps>;
   }>;
 }
 

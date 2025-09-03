@@ -45,11 +45,11 @@ export const useArkanoidEngine = (isActive: boolean = true, config?: Partial<Gam
       // Check for paddle hit (ball Y velocity reversal near paddle)
       if (newState.balls.length > 0) {
         const ball = newState.balls[0];
-        if (ball.velocity.y > 0 && previousBallVelocity.current < 0 && 
+        if (ball.velocity.dy > 0 && previousBallVelocity.current < 0 && 
             ball.position.y > newState.paddle.position.y - 20) {
           soundManager.current.playPaddleHit();
         }
-        previousBallVelocity.current = ball.velocity.y;
+        previousBallVelocity.current = ball.velocity.dy;
       }
       
       // Check for ball lost

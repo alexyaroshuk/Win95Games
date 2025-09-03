@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Position, Direction, GameState, INITIAL_SPEED } from '../core/types';
+import { Position, Direction, GameState } from '../core/types';
 import { SnakeGameEngine } from '../core/GameEngine';
 import { SoundManager } from '@/utils/SoundManager';
 
@@ -19,7 +19,7 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
   const [speed, setSpeed] = useState(SPEED_SETTINGS[initialSpeed]);
   const [isPaused, setIsPaused] = useState(false);
   
-  const gameLoopRef = useRef<NodeJS.Timeout>();
+  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const directionRef = useRef<Direction>(direction);
   const soundManager = useRef(SoundManager.getInstance());
 
@@ -113,7 +113,7 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
   };
 
   const pauseGame = () => {
-    if (gameState === 'playing') {
+    if (gameState === 'playing' || gameState === 'paused') {
       setGameState(gameState === 'paused' ? 'playing' : 'paused');
     }
   };

@@ -5,9 +5,8 @@ import {
   Paddle, 
   Brick,
   PowerUp,
-  DEFAULT_CONFIG,
-  BRICK_COLORS,
-  BRICK_POINTS
+  Position,
+  DEFAULT_CONFIG
 } from './types';
 import { PhysicsEngine } from './PhysicsEngine';
 import { CLASSIC_LEVELS, BRICK_MAP } from './ClassicLevels';
@@ -284,7 +283,7 @@ export class ArkanoidEngine {
   }
 
   movePaddleLeft(deltaTime: number): GameState {
-    if (this.state.gameStatus === 'playing') {
+    if (this.state.gameStatus === 'playing' || this.state.gameStatus === 'idle') {
       this.state.paddle = this.physics.movePaddle(this.state.paddle, 'left', deltaTime);
       
       // Move ball with paddle if game is idle
@@ -296,7 +295,7 @@ export class ArkanoidEngine {
   }
 
   movePaddleRight(deltaTime: number): GameState {
-    if (this.state.gameStatus === 'playing') {
+    if (this.state.gameStatus === 'playing' || this.state.gameStatus === 'idle') {
       this.state.paddle = this.physics.movePaddle(this.state.paddle, 'right', deltaTime);
       
       // Move ball with paddle if game is idle

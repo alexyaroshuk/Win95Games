@@ -1,7 +1,6 @@
 import { 
   GameState, 
   Board, 
-  Cell, 
   Tetromino, 
   TetrominoType,
   GameConfig,
@@ -56,6 +55,7 @@ export class TetrisEngine {
       nextPiece: this.generator.peek(),
       score: 0,
       lines: 0,
+      linesCleared: 0,
       level: 1,
       gameOver: false,
       isPaused: false,

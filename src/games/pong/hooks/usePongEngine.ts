@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { PongGameState, GAME_CONFIG } from '../core/types';
+import { PongGameState } from '../core/types';
 import { PongGameEngine } from '../core/GameEngine';
 import { SoundManager } from '@/utils/SoundManager';
 
@@ -8,7 +8,7 @@ export const usePongEngine = (difficulty: 'easy' | 'medium' | 'hard' = 'medium',
     PongGameEngine.createInitialState(difficulty)
   );
   
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | null>(null);
   const lastUpdateTimeRef = useRef<number>(0);
   const soundManager = useRef(SoundManager.getInstance());
   const keysPressedRef = useRef<Set<string>>(new Set());

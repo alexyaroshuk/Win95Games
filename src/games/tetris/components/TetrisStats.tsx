@@ -140,7 +140,7 @@ export const TetrisStats: React.FC<TetrisStatsProps> = ({
         >
           {isPaused ? 'Resume' : 'Pause'}
         </Win95Button>
-        <Win95Button variant="secondary" onClick={onReset}>
+        <Win95Button variant="default" onClick={onReset}>
           New Game
         </Win95Button>
       </div>
