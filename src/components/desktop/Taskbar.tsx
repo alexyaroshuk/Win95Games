@@ -61,7 +61,15 @@ export default function Taskbar({ windows, activeWindowId, minimizedWindows, onW
           alignItems: 'center',
           gap: '4px'
         }}>
-        <span style={{ fontSize: '14px' }}>⊞</span>
+        <img
+          src="/windows-logo.png"
+          alt="Windows"
+          style={{
+            width: '16px',
+            height: '14px',
+            imageRendering: 'pixelated'
+          }}
+        />
         Start
       </button>
 
