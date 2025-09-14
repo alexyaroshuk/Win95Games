@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { win95Theme } from '@/styles/theme';
 
 interface MenuItem {
-  label: string;
+  label?: string;
   icon?: string;
   action?: () => void;
   submenu?: MenuItem[];
@@ -135,7 +135,7 @@ export default function StartMenu({ isOpen, onClose, onOpenGame, onOpenAbout }: 
     }
 
     const hasSubmenu = item.submenu && item.submenu.length > 0;
-    const isActive = activeSubmenu === item.label;
+    const isActive = item.label && activeSubmenu === item.label;
 
     return (
       <div
@@ -149,7 +149,7 @@ export default function StartMenu({ isOpen, onClose, onOpenGame, onOpenAbout }: 
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = win95Theme.colors.titleBar;
             e.currentTarget.style.color = win95Theme.colors.textLight;
-            if (hasSubmenu) {
+            if (hasSubmenu && item.label) {
               handleMouseEnter(item.label);
             }
           }}
@@ -188,7 +188,7 @@ export default function StartMenu({ isOpen, onClose, onOpenGame, onOpenAbout }: 
             fontSize: '11px',
             flex: 1
           }}>
-            {item.label}
+            {item.label || ''}
           </span>
           {hasSubmenu && (
             <span style={{ fontSize: '10px' }}>▶</span>
@@ -294,7 +294,7 @@ function Submenu({ items, onItemClick, parentLabel, onOpenGame }: SubmenuProps) 
     }
 
     const hasSubmenu = item.submenu && item.submenu.length > 0;
-    const isActive = activeSubmenu === item.label;
+    const isActive = item.label && activeSubmenu === item.label;
 
     return (
       <div
@@ -308,7 +308,7 @@ function Submenu({ items, onItemClick, parentLabel, onOpenGame }: SubmenuProps) 
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = win95Theme.colors.titleBar;
             e.currentTarget.style.color = win95Theme.colors.textLight;
-            if (hasSubmenu) {
+            if (hasSubmenu && item.label) {
               setActiveSubmenu(item.label);
             }
           }}
@@ -345,7 +345,7 @@ function Submenu({ items, onItemClick, parentLabel, onOpenGame }: SubmenuProps) 
             fontSize: '11px',
             flex: 1
           }}>
-            {item.label}
+            {item.label || ''}
           </span>
           {hasSubmenu && (
             <span style={{ fontSize: '10px' }}>▶</span>
