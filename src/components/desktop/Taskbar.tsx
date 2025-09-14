@@ -9,9 +9,11 @@ interface TaskbarProps {
   activeWindowId: string | null;
   minimizedWindows: Set<string>;
   onWindowClick: (windowId: string) => void;
+  onStartClick: () => void;
+  isStartMenuOpen: boolean;
 }
 
-export default function Taskbar({ windows, activeWindowId, minimizedWindows, onWindowClick }: TaskbarProps) {
+export default function Taskbar({ windows, activeWindowId, minimizedWindows, onWindowClick, onStartClick, isStartMenuOpen }: TaskbarProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -43,20 +45,22 @@ export default function Taskbar({ windows, activeWindowId, minimizedWindows, onW
       padding: '2px',
       gap: '2px'
     }}>
-      <button style={{
-        height: '22px',
-        minWidth: '54px',
-        backgroundColor: win95Theme.colors.background,
-        ...win95Theme.borders.raised,
-        fontFamily: win95Theme.fonts.system,
-        fontSize: '11px',
-        fontWeight: 'bold',
-        padding: '0 4px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px'
-      }}>
+      <button
+        onClick={onStartClick}
+        style={{
+          height: '22px',
+          minWidth: '54px',
+          backgroundColor: win95Theme.colors.background,
+          ...(isStartMenuOpen ? win95Theme.borders.inset : win95Theme.borders.raised),
+          fontFamily: win95Theme.fonts.system,
+          fontSize: '11px',
+          fontWeight: 'bold',
+          padding: '0 4px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px'
+        }}>
         <span style={{ fontSize: '14px' }}>⊞</span>
         Start
       </button>

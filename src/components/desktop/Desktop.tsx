@@ -5,6 +5,8 @@ import { win95Theme } from '@/styles/theme';
 import Taskbar from './Taskbar';
 import DesktopShortcut from './DesktopShortcut';
 import WindowManager from './WindowManager';
+import StartMenu from './StartMenu';
+import AboutWindow from './AboutWindow';
 import { GameWindow, GameComponentProps } from './types';
 
 interface DesktopProps {
@@ -21,8 +23,43 @@ export default function Desktop({ games }: DesktopProps) {
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [minimizedWindows, setMinimizedWindows] = useState<Set<string>>(new Set());
   const [maximizedWindows, setMaximizedWindows] = useState<Set<string>>(new Set());
+  const [startMenuOpen, setStartMenuOpen] = useState(false);
 
   const openWindow = useCallback((gameId: string) => {
+    // Handle special windows
+    if (gameId === 'about') {
+      const existingWindow = openWindows.find(w => w.id === 'about');
+      if (existingWindow) {
+        if (minimizedWindows.has('about')) {
+          setMinimizedWindows(prev => {
+            const next = new Set(prev);
+            next.delete('about');
+            return next;
+          });
+        }
+        setActiveWindowId('about');
+        return;
+      }
+
+      const newWindow: GameWindow = {
+        id: 'about',
+        title: 'About',
+        icon: 'ℹ️',
+        component: AboutWindow as React.ComponentType<GameComponentProps>,
+        position: {
+          x: 100 + openWindows.length * 30,
+          y: 100 + openWindows.length * 30
+        },
+        size: { width: 400, height: 400 },
+        zIndex: openWindows.length + 1,
+        isMaximized: false
+      };
+
+      setOpenWindows(prev => [...prev, newWindow]);
+      setActiveWindowId('about');
+      return;
+    }
+
     const game = games.find(g => g.id === gameId);
     if (!game) return;
 
@@ -52,6 +89,8 @@ export default function Desktop({ games }: DesktopProps) {
           return { width: 500, height: 550 };
         case '2048':
           return { width: 450, height: 550 };
+        case 'pong':
+          return { width: 650, height: 500 };
         default:
           return { width: 400, height: 500 };
       }
@@ -169,6 +208,12 @@ export default function Desktop({ games }: DesktopProps) {
             onDoubleClick={() => openWindow(game.id)}
           />
         ))}
+        <DesktopShortcut
+          id="about"
+          title="About"
+          icon="ℹ️"
+          onDoubleClick={() => openWindow('about')}
+        />
       </div>
 
       <WindowManager
@@ -184,11 +229,20 @@ export default function Desktop({ games }: DesktopProps) {
         onUpdateSize={updateWindowSize}
       />
 
+      <StartMenu
+        isOpen={startMenuOpen}
+        onClose={() => setStartMenuOpen(false)}
+        onOpenGame={openWindow}
+        onOpenAbout={() => openWindow('about')}
+      />
+
       <Taskbar
         windows={openWindows}
         activeWindowId={activeWindowId}
         minimizedWindows={minimizedWindows}
         onWindowClick={restoreWindow}
+        onStartClick={() => setStartMenuOpen(!startMenuOpen)}
+        isStartMenuOpen={startMenuOpen}
       />
     </div>
   );
