@@ -194,7 +194,7 @@ export default function StartMenu({ isOpen, onClose, onOpenGame, onOpenAbout }: 
             <span style={{ fontSize: '10px' }}>▶</span>
           )}
         </button>
-        {hasSubmenu && isActive && (
+        {hasSubmenu && isActive && item.label && (
           <Submenu
             items={item.submenu!}
             onItemClick={handleMenuItemClick}
@@ -351,7 +351,7 @@ function Submenu({ items, onItemClick, parentLabel, onOpenGame }: SubmenuProps) 
             <span style={{ fontSize: '10px' }}>▶</span>
           )}
         </button>
-        {hasSubmenu && isActive && (
+        {hasSubmenu && isActive && item.label && (
           <Submenu
             items={item.submenu!}
             onItemClick={onItemClick}
