@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { ArkanoidGame } from '@/games/arkanoid/components/ArkanoidGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
 import { arkanoidInfo } from '@/games/common/gameData';
@@ -62,9 +63,11 @@ export default function ArkanoidWrapper({ isActive = false }: ArkanoidWrapperPro
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <ArkanoidGame key={gameKey} isActive={isActive} />
+      <GameContainer>
+        <ArkanoidGame key={gameKey} isActive={isActive} />
+      </GameContainer>
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { MinesweeperGame } from '@/games/minesweeper/components/MinesweeperGame';
 import { GameSettings } from '@/games/minesweeper/core/types';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { CustomGameDialog } from '../dialogs/CustomGameDialog';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
@@ -129,13 +130,15 @@ export default function MinesweeperWrapper({}: MinesweeperWrapperProps) {
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <MinesweeperGame 
-        key={gameKey} 
-        initialSettings={settings}
-        onSettingsChange={(newSettings) => setSettings(newSettings)}
-      />
+      <GameContainer>
+        <MinesweeperGame
+          key={gameKey}
+          initialSettings={settings}
+          onSettingsChange={(newSettings) => setSettings(newSettings)}
+        />
+      </GameContainer>
       <CustomGameDialog
         isOpen={customDialogOpen}
         onConfirm={handleCustomGame}

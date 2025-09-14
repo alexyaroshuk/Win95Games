@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { SnakeGame } from '@/games/snake/components/SnakeGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
 import { snakeInfo } from '@/games/common/gameData';
@@ -83,9 +84,11 @@ export default function SnakeWrapper({ isActive = false }: SnakeWrapperProps) {
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <SnakeGame key={gameKey} initialSpeed={speed} isActive={isActive} />
+      <GameContainer>
+        <SnakeGame key={gameKey} initialSpeed={speed} isActive={isActive} />
+      </GameContainer>
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

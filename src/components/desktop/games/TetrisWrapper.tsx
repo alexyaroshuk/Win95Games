@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { TetrisGame } from '@/games/tetris/components/TetrisGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
 import { tetrisInfo } from '@/games/common/gameData';
@@ -68,9 +69,11 @@ export default function TetrisWrapper({ isActive = false }: TetrisWrapperProps) 
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <TetrisGame key={gameKey} isActive={isActive} />
+      <GameContainer>
+        <TetrisGame key={gameKey} isActive={isActive} />
+      </GameContainer>
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

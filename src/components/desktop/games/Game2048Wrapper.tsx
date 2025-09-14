@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { Game2048 } from '@/games/2048/components/Game2048';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
 import { game2048Info } from '@/games/common/gameData';
@@ -83,9 +84,11 @@ export default function Game2048Wrapper({ isActive = false }: Game2048WrapperPro
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <Game2048 key={gameKey} targetScore={targetScore} isActive={isActive} />
+      <GameContainer>
+        <Game2048 key={gameKey} targetScore={targetScore} isActive={isActive} />
+      </GameContainer>
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

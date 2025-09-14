@@ -71,6 +71,17 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
     if (updates.speed !== undefined) setSpeed(updates.speed);
   }, [snake, food, gameState, score, highScore, speed]);
 
+  const startGame = useCallback(() => {
+    setSnake([{ x: 10, y: 10 }]);
+    setFood({ x: 15, y: 15 });
+    setDirection('RIGHT');
+    directionRef.current = 'RIGHT';
+    setScore(0);
+    setSpeed(SPEED_SETTINGS[initialSpeed]);
+    setGameState('playing');
+    setIsPaused(false);
+  }, [initialSpeed]);
+
   // Game loop
   useEffect(() => {
     if (gameState === 'playing' && !isPaused) {
@@ -86,8 +97,16 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
   // Keyboard controls
   useEffect(() => {
     if (!isActive) return;
-    
+
     const handleKeyPress = (e: KeyboardEvent) => {
+      // Handle space key to start game
+      if (e.key === ' ' || e.key === 'Space') {
+        if (gameState === 'idle' || gameState === 'gameOver') {
+          startGame();
+          return;
+        }
+      }
+
       if (gameState !== 'playing') return;
 
       const newDirection = SnakeGameEngine.getDirectionFromKey(e.key, directionRef.current);
@@ -99,18 +118,7 @@ export const useSnakeGame = (initialSpeed: 'slow' | 'normal' | 'fast' = 'normal'
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [gameState, isActive]);
-
-  const startGame = () => {
-    setSnake([{ x: 10, y: 10 }]);
-    setFood({ x: 15, y: 15 });
-    setDirection('RIGHT');
-    directionRef.current = 'RIGHT';
-    setScore(0);
-    setSpeed(SPEED_SETTINGS[initialSpeed]);
-    setGameState('playing');
-    setIsPaused(false);
-  };
+  }, [gameState, isActive, startGame]);
 
   const pauseGame = () => {
     if (gameState === 'playing' || gameState === 'paused') {

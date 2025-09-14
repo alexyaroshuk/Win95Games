@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { PongGame } from '@/games/pong/components/PongGame';
 import GameMenuBar, { Menu } from '../GameMenuBar';
+import GameContainer from '../GameContainer';
 import { SoundManager } from '@/utils/SoundManager';
 import { HelpDialog } from '@/games/common/components/HelpDialog';
 
@@ -114,9 +115,11 @@ export default function PongWrapper({ isActive = false }: PongWrapperProps) {
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <GameMenuBar menus={menus} />
-      <PongGame key={gameKey} difficulty={difficulty} isActive={isActive} />
+      <GameContainer>
+        <PongGame key={gameKey} difficulty={difficulty} isActive={isActive} />
+      </GameContainer>
       <HelpDialog
         isOpen={helpDialogOpen}
         onClose={() => setHelpDialogOpen(false)}

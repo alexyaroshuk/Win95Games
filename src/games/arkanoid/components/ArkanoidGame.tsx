@@ -32,7 +32,9 @@ export const ArkanoidGame: React.FC<ArkanoidGameProps> = ({ isActive = true }) =
     <div style={{
       ...win95Theme.borders.raisedThick,
       backgroundColor: win95Theme.colors.background,
-      padding: win95Theme.spacing.lg
+      padding: win95Theme.spacing.lg,
+      width: 'fit-content',
+      height: 'fit-content'
     }}>
       <div style={{
         display: 'flex',

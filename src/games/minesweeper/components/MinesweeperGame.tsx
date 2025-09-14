@@ -71,7 +71,9 @@ export const MinesweeperGame: React.FC<MinesweeperGameProps> = ({
   const gameContainerStyle = useMemo(() => ({
     ...win95Theme.borders.raisedThick,
     backgroundColor: win95Theme.colors.background,
-    padding: win95Theme.spacing.sm
+    padding: win95Theme.spacing.sm,
+    width: 'fit-content',
+    height: 'fit-content'
   }), []);
 
   const contentStyle = useMemo(() => ({

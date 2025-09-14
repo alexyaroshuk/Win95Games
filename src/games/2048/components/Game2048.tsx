@@ -30,7 +30,9 @@ export function Game2048({ targetScore = 2048, isActive = true }: Game2048Props)
     <div style={{
       ...borders.raisedThick,
       backgroundColor: colors.background,
-      padding: spacing.lg
+      padding: spacing.lg,
+      width: 'fit-content',
+      height: 'fit-content'
     }}>
       <div style={{
         display: 'flex',
